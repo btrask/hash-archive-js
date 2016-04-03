@@ -4,6 +4,7 @@ errno.ERR_UNKNOWN = -12400;
 errno.ERR_BLOCKED = -12401;
 errno.ERR_NOTFOUND = -12402;
 errno.ERR_CONNREFUSED = -12403;
+errno.ERR_REDIRECT = -12404;
 
 errno.http_strerror = function(status) {
 	switch(status) {
@@ -72,6 +73,7 @@ errno.strerror = function(code) {
 	case errno.ERR_BLOCKED: return "Blocked by robots.txt";
 	case errno.ERR_NOTFOUND: return "Not found";
 	case errno.ERR_CONNREFUSED: return "Connection refused";
+	case errno.ERR_REDIRECT: return "Too many redirects";
 	}
 	return errno.http_strerror(code);
 };

@@ -100,7 +100,7 @@ function worker() {
 			return;
 		}
 
-		url_check_and_stat(req.url, function(err, res) {
+		url_check_and_stat(req.url, 0, function(err, res) {
 			if(err) res = request_error(req, err);
 			db_open(function(db) {
 				response_store(db, req, res, function(err) {
@@ -152,7 +152,7 @@ function url_check_robots_txt(obj, cb) {
 		cb(err);
 	});
 }
-function url_stat(obj, cb) {
+function url_stat(obj, redirect_count, cb) {
 	var protocol = "https:" === obj.protocol ? https : http;
 	var req = protocol.request({
 		method: "GET", // TODO: HEAD first?
@@ -162,10 +162,19 @@ function url_stat(obj, cb) {
 		agent: false,
 		headers: {
 			"User-Agent": config["user_agent"],
+			// TODO: if-modified and if-not-match
 		},
 	});
 	req.end();
 	req.on("response", function(res) {
+		if(
+			res.statusCode >= 300 &&
+			res.statusCode <  400 &&
+			has(res.headers, "location"))
+		{
+			return url_check_and_stat(res.headers["location"], redirect_count+1, cb);
+		}
+
 		var hashers = {
 			"md5": crypto.createHash("md5"),
 			"sha1": crypto.createHash("sha1"),
@@ -201,11 +210,16 @@ function url_stat(obj, cb) {
 		cb(err, null);
 	});
 }
-function url_check_and_stat(url, cb) {
+function url_check_and_stat(url, redirect_count, cb) {
+	if(redirect_count >= 5) {
+		var err = new Error("Too many redirects");
+		err.errno = errno.ERR_REDIRECT;
+		return cb(err, null);
+	}
 	var obj = urlm.parse(url);
 	url_check_robots_txt(obj, function(err, fetchable) {
 		if(err) return cb(err, null);
-		url_stat(obj, cb);
+		url_stat(obj, redirect_count, cb);
 	});
 }
 
