@@ -593,7 +593,7 @@ function server_create(listener) {
 	if(config.key_path || config.crt_path) {
 		var key = fs.readFileSync(config["key_path"]);
 		var crt = fs.readFileSync(config["crt_path"]);
-		var tls = https.createServer({ key: key, crt: crt }, listener);
+		var tls = https.createServer({ key: key, cert: crt }, listener);
 		var raw = http.createServer(function(req, res) {
 			res.writeHead(301, {
 				"Location": "https://"+req.headers["host"]+":"+config["port_tls"]+req.url,
