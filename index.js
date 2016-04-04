@@ -12,7 +12,7 @@ var pathm = require("path");
 var util = require("util");
 
 var mime_table = require("./mime.json");
-var robots = require("robots");
+//var robots = require("robots");
 var sqlite = require("sqlite3").verbose();
 
 var has = require("./has");
@@ -29,6 +29,7 @@ if(!has(config, "port_tls")) config["port_tls"] = 443;
 if(!has(config, "port_raw")) config["port_raw"] = 80;
 if(!has(config, "db_path")) config["db_path"] = "./archive.db";
 if(!has(config, "user_agent")) config["user_agent"] = "Hash Archive (https://github.com/btrask/hash-archive)";
+if(!has(config, "crawl_delay")) config["crawl_delay"] = 1000;
 
 
 var db_waiting = [];
@@ -100,13 +101,18 @@ function worker() {
 			return;
 		}
 
+		var start_time = +new Date;
 		url_check_and_stat(req.url, 0, function(err, res) {
 			if(err) res = request_error(req, err);
 			db_open(function(db) {
 				response_store(db, req, res, function(err) {
 					if(err) throw err;
-					workers--;
-					worker();
+					var elapsed = +new Date - start_time;
+					var delay = config["crawl_delay"];
+					setTimeout(function() {
+						workers--;
+						worker();
+					}, Math.max(0, delay - elapsed));
 				});
 			});
 		});
@@ -124,7 +130,9 @@ function request_error(req, err) {
 
 
 function url_check_robots_txt(obj, cb) {
-	var protocol = "https:" === obj.protocol ? https : http;
+	// This crawl was requested by a 100% natural human being!
+	return cb(null);
+/*	var protocol = "https:" === obj.protocol ? https : http;
 	var req = protocol.request({
 		method: "GET",
 		hostname: obj.hostname,
@@ -150,7 +158,7 @@ function url_check_robots_txt(obj, cb) {
 	});
 	req.on("error", function(err) {
 		cb(err);
-	});
+	});*/
 }
 function url_stat(obj, redirect_count, cb) {
 	var protocol = "https:" === obj.protocol ? https : http;
