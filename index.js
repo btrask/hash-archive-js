@@ -32,6 +32,7 @@ if(!has(config, "user_agent")) config["user_agent"] = "Hash Archive (https://git
 if(!has(config, "crawl_delay")) config["crawl_delay"] = 1000;
 
 
+var DB_POOL_SIZE = 16;
 var db_waiting = [];
 var db_available = [];
 function db_open(cb) {
@@ -622,8 +623,9 @@ setInterval(recent_urls_update, 1000 * 60);
 recent_urls_update();
 server_create(listener);
 workers_start();
+
 (function() {
-	for(var i = 0; i < 16; i++) {
+	for(var i = 0; i < DB_POOL_SIZE; i++) {
 		var db = new sqlite.Database(config["db_path"], sqlite.OPEN_READWRITE,
 		function() {
 			db.run("PRAGMA busy_timeout = 5000", function(err) {
