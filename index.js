@@ -11,6 +11,8 @@ var qs = require("querystring");
 var urlm = require("url");
 var pathm = require("path");
 var util = require("util");
+var streamm = require("stream");
+var WARCStream = require('warc');
 
 var mime_table = require("./mime.json");
 //var robots = require("robots");
@@ -178,6 +180,33 @@ function url_stat(obj, redirect_count, cb) {
 		},
 	});
 	req.end();
+
+	function url_response(res) {
+		if(is_redirect(res)) {
+			return url_check_and_stat(res.headers["location"], redirect_count+1, cb);
+		}
+
+		var w = null;
+		if (/\.warc$/.test(obj.path.toLowerCase())) {
+			console.log('warc!!!');
+			w = new WARCStream();
+			res.pipe(w).on('data', function (data) {
+				console.log(data.headers['WARC-Target-URI']);
+			});
+		}
+		do_hashing({
+			status: res.statusCode,
+			content_type: res.headers["content-type"],
+			etag: res.headers["etag"],
+			last_modified: res.headers["last-modified"],
+			date: res.headers["date"],
+			data: res
+		}, cb);
+		res.on("error", function(err) {
+			cb(err, null);
+		});
+	}
+
 	req.on("response", url_response);
 	req.on("error", function(err) {
 		cb(err, null);
@@ -190,11 +219,7 @@ function is_redirect(res) {
 		has(res.headers, "location");
 }
 
-function url_response(res) {
-	if(is_redirect(res)) {
-		return url_check_and_stat(res.headers["location"], redirect_count+1, cb);
-	}
-
+function do_hashing(thing, cb) {
 	var hashers = {
 		"md5": crypto.createHash("md5"),
 		"sha1": crypto.createHash("sha1"),
@@ -202,28 +227,18 @@ function url_response(res) {
 		"sha384": crypto.createHash("sha384"),
 		"sha512": crypto.createHash("sha512"),
 	};
+	thing.hashes = {};
 	Object.keys(hashers).forEach(function(algo) {
-		res.pipe(hashers[algo]);
+		thing.data.pipe(hashers[algo]);
 	});
-
-	res.on("end", function() {
-		var hashes = {};
+	thing.data.on("end", function() {
 		Object.keys(hashers).forEach(function(algo) {
 			hashers[algo].end();
-			hashes[algo] = hashers[algo].read();
+			thing.hashes[algo] = hashers[algo].read();
 		});
-		cb(null, {
-			status: res.statusCode,
-			response_time: +new Date,
-			content_type: res.headers["content-type"],
-			etag: res.headers["etag"],
-			last_modified: res.headers["last-modified"],
-			date: res.headers["date"],
-			hashes: hashes,
-		});
-	});
-	res.on("error", function(err) {
-		cb(err, null);
+		thing.response_time = +new Date;
+		thing.data = null;
+		cb(null, thing);
 	});
 }
 
