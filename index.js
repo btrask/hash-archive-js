@@ -2,6 +2,7 @@
 // Copyright 2016 Ben Trask
 // MIT licensed (see LICENSE for details)
 
+var cluster = require("cluster");
 var crypto = require("crypto");
 var fs = require("fs");
 var http = require("http");
@@ -19,9 +20,10 @@ var has = require("./has");
 var hashm = require("./hash");
 var templates = require("./templates");
 var errno = require("./errno");
-var db_pool = require("./db-pool");
+var db_pool = require("./db_pool");
+var work_queue = require("./work_queue");
 
-var config = require("./config-obj");
+var config = require("./config_obj");
 
 
 var DB_POOL_SIZE = 16;
@@ -66,11 +68,31 @@ function stream_text(stream, cb) {
 
 var WORKERS_MAX = 10;
 var workers = 0;
-var cur_req_id = 0;
 function workers_start() {
 	for(var i = 0; i < WORKERS_MAX; i++) worker();
 }
 
+if(!cluster.isMaster) {
+	var assigned_work = [];
+	process.on("message", function(msg) {
+		switch(msg.cmd) {
+		case "work": assigned_work.push(msg.req); worker(); return;
+		}
+	});
+}
+function request_load_one(cb) {
+	if(cluster.isMaster) {
+		work_queue.get(cb);
+	} else {
+		process.nextTick(function() {
+			if(!assigned_work.length) {
+				process.send({ cmd: "send_work" });
+				return cb(null, null);
+			}
+			cb(null, assigned_work.shift());
+		});
+	}
+}
 function worker() {
 	if(workers >= WORKERS_MAX) return;
 	workers++;
@@ -87,6 +109,7 @@ function worker() {
 			if(err) res = request_error(req, err);
 			db_open(function(db) {
 				response_store(db, req, res, function(err) {
+					db_close(db);
 					if(err) throw err;
 					var elapsed = +new Date - start_time;
 					var delay = config["crawl_delay"];
@@ -244,30 +267,6 @@ function dict_2d_rotate(obj) {
 
 
 
-
-
-function request_load_one(cb) {
-	db_open(function(db) {
-		db.get(
-			"SELECT req.request_id, req.url\n"+
-			"FROM requests AS req\n"+
-			"LEFT JOIN responses AS res ON (req.request_id = res.request_id)\n"+
-			"WHERE res.response_id IS NULL AND req.request_id > ?\n"+
-			"ORDER BY req.request_time ASC LIMIT 1", cur_req_id,
-		function(err, row) {
-			db_close(db);
-			if(err) return cb(err, null);
-			if(!row) return cb(null, null);
-
-			// Detect massive race condition where someone else
-			// picks this request before we start...
-			if(row.request_id <= cur_req_id) return request_load_one(cb);
-			cur_req_id = row.request_id;
-
-			cb(null, row);
-		});
-	});
-}
 function request_bump(db, url, cb) {
 	// TODO: BEGIN FOR UPDATE or something like that?
 	db.run("BEGIN TRANSACTION", function(err) {
@@ -304,7 +303,11 @@ function request_bump(db, url, cb) {
 					if(err) return cb(err, null);
 					db.run("COMMIT", function(err) {
 						if(err) return cb(err, null);
-						worker(); // TODO: HACK
+						if(cluster.isMaster) {
+							worker(); // TODO: HACK
+						} else {
+							process.send({ cmd: "add_work" });
+						}
 						cb(null, { outdated: true });
 					});
 				});
