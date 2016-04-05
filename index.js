@@ -11,6 +11,8 @@ var qs = require("querystring");
 var urlm = require("url");
 var pathm = require("path");
 var util = require("util");
+var streamm = require("stream");
+var WARCStream = require('warc');
 
 var mime_table = require("./mime.json");
 //var robots = require("robots");
@@ -103,20 +105,35 @@ function worker() {
 			console.log("Worker stopping (remaining: "+workers+")");
 			return;
 		}
-
+		function check_err(db, err) {
+			if(err) {
+				db_close(db);
+				throw err;
+			}
+		}
 		var start_time = +new Date;
 		url_check_and_stat(req.url, 0, function(err, res) {
 			if(err) res = request_error(req, err);
+			if (res.processed) return;
+			res.processed = true;
+
 			db_open(function(db) {
-				response_store(db, req, res, function(err) {
-					db_close(db);
-					if(err) throw err;
-					var elapsed = +new Date - start_time;
-					var delay = config["crawl_delay"];
-					setTimeout(function() {
-						workers--;
-						worker();
-					}, Math.max(0, delay - elapsed));
+				db.run("BEGIN TRANSACTION", function(err) {
+					check_err(db, err);
+					response_store(db, req, res.main, function(err) {
+						check_err(db, err);
+						console.log(res);
+						db.run("COMMIT", function(err) {
+							check_err(db, err);
+							db_close(db);
+							var elapsed = +new Date - start_time;
+							var delay = config["crawl_delay"];
+							setTimeout(function() {
+								workers--;
+								worker();
+							}, Math.max(0, delay - elapsed));
+						});
+					});
 				});
 			});
 		});
@@ -178,50 +195,103 @@ function url_stat(obj, redirect_count, cb) {
 		},
 	});
 	req.end();
-	req.on("response", function(res) {
-		if(
-			res.statusCode >= 300 &&
-			res.statusCode <  400 &&
-			has(res.headers, "location"))
-		{
+
+	function url_response(res) {
+		if(is_redirect(res)) {
 			return url_check_and_stat(res.headers["location"], redirect_count+1, cb);
 		}
 
-		var hashers = {
-			"md5": crypto.createHash("md5"),
-			"sha1": crypto.createHash("sha1"),
-			"sha256": crypto.createHash("sha256"),
-			"sha384": crypto.createHash("sha384"),
-			"sha512": crypto.createHash("sha512"),
-		};
-		Object.keys(hashers).forEach(function(algo) {
-			res.pipe(hashers[algo]);
-		});
-
-		res.on("end", function() {
-			var hashes = {};
-			Object.keys(hashers).forEach(function(algo) {
-				hashers[algo].end();
-				hashes[algo] = hashers[algo].read();
+		var w = null;
+		var full_response = {};
+		if (/\.warc$/.test(obj.path.toLowerCase())) {
+			console.log('warc!!!');
+			full_response.inners = [];
+			w = new WARCStream();
+			res.pipe(w)
+			w.on('data', function (data) {
+				console.log(data.headers['WARC-Target-URI']);
+				data_stream = streamm.PassThrough();
+				data_stream.end(data.content);
+				do_hashing({
+					status: '?',
+					content_type: '?',
+					etag: '?',
+					last_modified: '?',
+					date: data.headers['WARC-Date'],
+					data: data_stream
+				}, function(err, res_thing) {
+					full_response.inners.push(
+						{
+							request_url: data.headers['WARC-Target-URI'],
+							response: res_thing
+						});
+				});
 			});
-			cb(null, {
-				status: res.statusCode,
-				response_time: +new Date,
-				content_type: res.headers["content-type"],
-				etag: res.headers["etag"],
-				last_modified: res.headers["last-modified"],
-				date: res.headers["date"],
-				hashes: hashes,
+			w.on('end', function() {
+				console.log('Finished WARC processing');
+				full_response.done = true;
+				if (full_response.main) {
+					cb(null, full_response);
+				}
 			});
+		} else {
+			full_response.done = true;
+		}
+		do_hashing({
+			status: res.statusCode,
+			content_type: res.headers["content-type"],
+			etag: res.headers["etag"],
+			last_modified: res.headers["last-modified"],
+			date: res.headers["date"],
+			data: res
+		}, function (err, res_thing) {
+			if(err) return cb(err, null);
+			console.log('Finished normal processing');
+			full_response.main = res_thing;
+			if (full_response.done) {
+				cb(null, full_response);
+			}
 		});
 		res.on("error", function(err) {
 			cb(err, null);
 		});
-	});
+	}
+
+	req.on("response", url_response);
 	req.on("error", function(err) {
 		cb(err, null);
 	});
 }
+
+function is_redirect(res) {
+	return res.statusCode >= 300 &&
+		res.statusCode <  400 &&
+		has(res.headers, "location");
+}
+
+function do_hashing(thing, cb) {
+	var hashers = {
+		"md5": crypto.createHash("md5"),
+		"sha1": crypto.createHash("sha1"),
+		"sha256": crypto.createHash("sha256"),
+		"sha384": crypto.createHash("sha384"),
+		"sha512": crypto.createHash("sha512"),
+	};
+	thing.hashes = {};
+	Object.keys(hashers).forEach(function(algo) {
+		thing.data.pipe(hashers[algo]);
+	});
+	thing.data.on("end", function() {
+		Object.keys(hashers).forEach(function(algo) {
+			hashers[algo].end();
+			thing.hashes[algo] = hashers[algo].read();
+		});
+		thing.response_time = +new Date;
+		thing.data = null;
+		cb(null, thing);
+	});
+}
+
 function url_check_and_stat(url, redirect_count, cb) {
 	if(redirect_count >= 5) {
 		var err = new Error("Too many redirects");
@@ -321,25 +391,17 @@ function request_bump(db, url, cb) {
 	});
 }
 function response_store(db, req, res, cb) {
-	db.run("BEGIN TRANSACTION", function(err) {
-		if(err) return cb(err);
-		db.run(
-			"INSERT INTO responses (request_id, status, response_time,\n"+
+	db.run(
+		"INSERT INTO responses (request_id, status, response_time,\n"+
 			"\t"+"content_type, etag, last_modified, date)\n"+
 			"VALUES (?, ?, ?, ?, ?, ?, ?)",
-			req.request_id, res.status, res.response_time,
-			res.content_type, res.etag, res.last_modified, res.date,
+		req.request_id, res.status, res.response_time,
+		res.content_type, res.etag, res.last_modified, res.date,
 		function(err) {
 			if(err) return cb(err);
 			var response_id = this.lastID;
-			response_store_hashes(db, response_id, res.hashes, function(err) {
-				if(err) return cb(err);
-				db.run("COMMIT", function(err) {
-					cb(err);
-				});
-			});
+			response_store_hashes(db, response_id, res.hashes, cb);
 		});
-	});
 }
 function response_store_hashes(db, response_id, hashes, cb) {
 	var algos = Object.keys(hashes);
