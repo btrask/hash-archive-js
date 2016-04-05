@@ -114,12 +114,15 @@ function worker() {
 		var start_time = +new Date;
 		url_check_and_stat(req.url, 0, function(err, res) {
 			if(err) res = request_error(req, err);
+			if (res.processed) return;
+			res.processed = true;
 
 			db_open(function(db) {
 				db.run("BEGIN TRANSACTION", function(err) {
 					check_err(db, err);
 					response_store(db, req, res.main, function(err) {
 						check_err(db, err);
+						console.log(res);
 						db.run("COMMIT", function(err) {
 							check_err(db, err);
 							db_close(db);
@@ -199,12 +202,40 @@ function url_stat(obj, redirect_count, cb) {
 		}
 
 		var w = null;
+		var full_response = {};
 		if (/\.warc$/.test(obj.path.toLowerCase())) {
 			console.log('warc!!!');
+			full_response.inners = [];
 			w = new WARCStream();
-			res.pipe(w).on('data', function (data) {
+			res.pipe(w)
+			w.on('data', function (data) {
 				console.log(data.headers['WARC-Target-URI']);
+				data_stream = streamm.PassThrough();
+				data_stream.end(data.content);
+				do_hashing({
+					status: '?',
+					content_type: '?',
+					etag: '?',
+					last_modified: '?',
+					date: data.headers['WARC-Date'],
+					data: data_stream
+				}, function(err, res_thing) {
+					full_response.inners.push(
+						{
+							request_url: data.headers['WARC-Target-URI'],
+							response: res_thing
+						});
+				});
 			});
+			w.on('end', function() {
+				console.log('Finished WARC processing');
+				full_response.done = true;
+				if (full_response.main) {
+					cb(null, full_response);
+				}
+			});
+		} else {
+			full_response.done = true;
 		}
 		do_hashing({
 			status: res.statusCode,
@@ -215,9 +246,11 @@ function url_stat(obj, redirect_count, cb) {
 			data: res
 		}, function (err, res_thing) {
 			if(err) return cb(err, null);
-			cb(null, {
-				main: res_thing
-			});
+			console.log('Finished normal processing');
+			full_response.main = res_thing;
+			if (full_response.done) {
+				cb(null, full_response);
+			}
 		});
 		res.on("error", function(err) {
 			cb(err, null);
