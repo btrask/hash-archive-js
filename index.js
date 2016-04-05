@@ -184,12 +184,14 @@ function url_stat(obj, redirect_count, cb) {
 	});
 }
 
-function url_response(res) {
-	if(
-		res.statusCode >= 300 &&
+function is_redirect(res) {
+	return res.statusCode >= 300 &&
 		res.statusCode <  400 &&
-		has(res.headers, "location"))
-	{
+		has(res.headers, "location");
+}
+
+function url_response(res) {
+	if(is_redirect(res)) {
 		return url_check_and_stat(res.headers["location"], redirect_count+1, cb);
 	}
 
