@@ -178,50 +178,53 @@ function url_stat(obj, redirect_count, cb) {
 		},
 	});
 	req.end();
-	req.on("response", function(res) {
-		if(
-			res.statusCode >= 300 &&
-			res.statusCode <  400 &&
-			has(res.headers, "location"))
-		{
-			return url_check_and_stat(res.headers["location"], redirect_count+1, cb);
-		}
-
-		var hashers = {
-			"md5": crypto.createHash("md5"),
-			"sha1": crypto.createHash("sha1"),
-			"sha256": crypto.createHash("sha256"),
-			"sha384": crypto.createHash("sha384"),
-			"sha512": crypto.createHash("sha512"),
-		};
-		Object.keys(hashers).forEach(function(algo) {
-			res.pipe(hashers[algo]);
-		});
-
-		res.on("end", function() {
-			var hashes = {};
-			Object.keys(hashers).forEach(function(algo) {
-				hashers[algo].end();
-				hashes[algo] = hashers[algo].read();
-			});
-			cb(null, {
-				status: res.statusCode,
-				response_time: +new Date,
-				content_type: res.headers["content-type"],
-				etag: res.headers["etag"],
-				last_modified: res.headers["last-modified"],
-				date: res.headers["date"],
-				hashes: hashes,
-			});
-		});
-		res.on("error", function(err) {
-			cb(err, null);
-		});
-	});
+	req.on("response", url_response);
 	req.on("error", function(err) {
 		cb(err, null);
 	});
 }
+
+function url_response(res) {
+	if(
+		res.statusCode >= 300 &&
+		res.statusCode <  400 &&
+		has(res.headers, "location"))
+	{
+		return url_check_and_stat(res.headers["location"], redirect_count+1, cb);
+	}
+
+	var hashers = {
+		"md5": crypto.createHash("md5"),
+		"sha1": crypto.createHash("sha1"),
+		"sha256": crypto.createHash("sha256"),
+		"sha384": crypto.createHash("sha384"),
+		"sha512": crypto.createHash("sha512"),
+	};
+	Object.keys(hashers).forEach(function(algo) {
+		res.pipe(hashers[algo]);
+	});
+
+	res.on("end", function() {
+		var hashes = {};
+		Object.keys(hashers).forEach(function(algo) {
+			hashers[algo].end();
+			hashes[algo] = hashers[algo].read();
+		});
+		cb(null, {
+			status: res.statusCode,
+			response_time: +new Date,
+			content_type: res.headers["content-type"],
+			etag: res.headers["etag"],
+			last_modified: res.headers["last-modified"],
+			date: res.headers["date"],
+			hashes: hashes,
+		});
+	});
+	res.on("error", function(err) {
+		cb(err, null);
+	});
+}
+
 function url_check_and_stat(url, redirect_count, cb) {
 	if(redirect_count >= 5) {
 		var err = new Error("Too many redirects");
