@@ -19,27 +19,15 @@ var has = require("./has");
 var hashm = require("./hash");
 var templates = require("./templates");
 var errno = require("./errno");
+var db_pool = require("./db-pool");
 
 var config = require("./config-obj");
 
 
 var DB_POOL_SIZE = 16;
-var db_waiting = [];
-var db_available = [];
-function db_open(cb) {
-	if(db_available.length) {
-		cb(db_available.pop());
-	} else {
-		db_waiting.push(cb);
-	}
-}
-function db_close(db) {
-	if(db_waiting.length) {
-		db_waiting.pop()(db);
-	} else {
-		db_available.push(db);
-	}
-}
+var db_open = db_pool.open;
+var db_close = db_pool.close;
+
 
 var recent_urls = [];
 function recent_urls_update() {
@@ -615,18 +603,8 @@ setInterval(recent_urls_update, 1000 * 60);
 recent_urls_update();
 server_create(listener);
 workers_start();
+db_pool.setup(DB_POOL_SIZE, config["db_path"], db_pool.OPEN_READWRITE);
 
-(function() {
-	for(var i = 0; i < DB_POOL_SIZE; i++) {
-		var db = new sqlite.Database(config["db_path"], sqlite.OPEN_READWRITE,
-		function() {
-			db.run("PRAGMA busy_timeout = 5000", function(err) {
-				if(err) throw err;
-				db_close(db);
-			});
-		});
-	}
-})();
 
 
 
