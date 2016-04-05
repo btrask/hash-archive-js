@@ -37,9 +37,10 @@ var db_waiting = [];
 var db_available = [];
 function db_open(cb) {
 	if(db_available.length) {
-		return cb(db_available.pop());
+		cb(db_available.pop());
+	} else {
+		db_waiting.push(cb);
 	}
-	db_waiting.push(cb);
 }
 function db_close(db) {
 	if(db_waiting.length) {
