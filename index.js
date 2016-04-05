@@ -105,20 +105,32 @@ function worker() {
 			console.log("Worker stopping (remaining: "+workers+")");
 			return;
 		}
-
+		function check_err(db, err) {
+			if(err) {
+				db_close(db);
+				throw err;
+			}
+		}
 		var start_time = +new Date;
 		url_check_and_stat(req.url, 0, function(err, res) {
 			if(err) res = request_error(req, err);
+
 			db_open(function(db) {
-				response_store(db, req, res, function(err) {
-					db_close(db);
-					if(err) throw err;
-					var elapsed = +new Date - start_time;
-					var delay = config["crawl_delay"];
-					setTimeout(function() {
-						workers--;
-						worker();
-					}, Math.max(0, delay - elapsed));
+				db.run("BEGIN TRANSACTION", function(err) {
+					check_err(db, err);
+					response_store(db, req, res.main, function(err) {
+						check_err(db, err);
+						db.run("COMMIT", function(err) {
+							check_err(db, err);
+							db_close(db);
+							var elapsed = +new Date - start_time;
+							var delay = config["crawl_delay"];
+							setTimeout(function() {
+								workers--;
+								worker();
+							}, Math.max(0, delay - elapsed));
+						});
+					});
 				});
 			});
 		});
@@ -201,7 +213,12 @@ function url_stat(obj, redirect_count, cb) {
 			last_modified: res.headers["last-modified"],
 			date: res.headers["date"],
 			data: res
-		}, cb);
+		}, function (err, res_thing) {
+			if(err) return cb(err, null);
+			cb(null, {
+				main: res_thing
+			});
+		});
 		res.on("error", function(err) {
 			cb(err, null);
 		});
@@ -341,25 +358,17 @@ function request_bump(db, url, cb) {
 	});
 }
 function response_store(db, req, res, cb) {
-	db.run("BEGIN TRANSACTION", function(err) {
-		if(err) return cb(err);
-		db.run(
-			"INSERT INTO responses (request_id, status, response_time,\n"+
+	db.run(
+		"INSERT INTO responses (request_id, status, response_time,\n"+
 			"\t"+"content_type, etag, last_modified, date)\n"+
 			"VALUES (?, ?, ?, ?, ?, ?, ?)",
-			req.request_id, res.status, res.response_time,
-			res.content_type, res.etag, res.last_modified, res.date,
+		req.request_id, res.status, res.response_time,
+		res.content_type, res.etag, res.last_modified, res.date,
 		function(err) {
 			if(err) return cb(err);
 			var response_id = this.lastID;
-			response_store_hashes(db, response_id, res.hashes, function(err) {
-				if(err) return cb(err);
-				db.run("COMMIT", function(err) {
-					cb(err);
-				});
-			});
+			response_store_hashes(db, response_id, res.hashes, cb);
 		});
-	});
 }
 function response_store_hashes(db, response_id, hashes, cb) {
 	var algos = Object.keys(hashes);
