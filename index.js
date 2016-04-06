@@ -65,7 +65,7 @@ function stream_text(stream, cb) {
 		cb(err, null);
 	});
 }
-function stream_hashes(stream, cb) {
+function stream_hashes(stream, cb) { // cb(err, { length, hashes })
 	var length = 0;
 	var hashers = {
 		"md5": crypto.createHash("md5"),
