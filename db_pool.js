@@ -11,7 +11,10 @@ var db_available = [];
 db_pool.OPEN_READWRITE = sqlite.OPEN_READWRITE;
 
 db_pool.setup = function(num, path, mode) {
-	for(var i = 0; i < num; i++) {
+	// Be careful when using closures in arrays...
+	// We were adding the last db created num times,
+	// instead of adding each one once.
+	for(var i = 0; i < num; i++) (function () {
 		var db = new sqlite.Database(path, mode,
 		function() {
 			db.run("PRAGMA busy_timeout = 5000", function(err) {
@@ -19,7 +22,7 @@ db_pool.setup = function(num, path, mode) {
 				db_pool.close(db);
 			});
 		});
-	}
+	})();
 };
 
 db_pool.open = function(cb) {
