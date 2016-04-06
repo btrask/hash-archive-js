@@ -5,6 +5,7 @@ errno.ERR_BLOCKED = -12401;
 errno.ERR_NOTFOUND = -12402;
 errno.ERR_CONNREFUSED = -12403;
 errno.ERR_REDIRECT = -12404;
+errno.ERR_TRUNCATED = -12405;
 
 errno.http_strerror = function(status) {
 	switch(status) {
@@ -74,7 +75,13 @@ errno.strerror = function(code) {
 	case errno.ERR_NOTFOUND: return "Not found";
 	case errno.ERR_CONNREFUSED: return "Connection refused";
 	case errno.ERR_REDIRECT: return "Too many redirects";
+	case errno.ERR_TRUNCATED: return "Truncated response";
 	}
 	return errno.http_strerror(code);
+};
+errno.createError = function(code) {
+	var err = new Error(errno.strerror(code));
+	err.errno = code;
+	return err;
 };
 

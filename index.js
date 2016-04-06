@@ -187,6 +187,7 @@ function url_stat(obj, redirect_count, cb) {
 			return url_check_and_stat(res.headers["location"], redirect_count+1, cb);
 		}
 
+		var length = 0;
 		var hashers = {
 			"md5": crypto.createHash("md5"),
 			"sha1": crypto.createHash("sha1"),
@@ -194,11 +195,20 @@ function url_stat(obj, redirect_count, cb) {
 			"sha384": crypto.createHash("sha384"),
 			"sha512": crypto.createHash("sha512"),
 		};
-		Object.keys(hashers).forEach(function(algo) {
-			res.pipe(hashers[algo]);
+		res.on("data", function(chunk) {
+			length += chunk.length;
+			Object.keys(hashers).forEach(function(algo) {
+				hashers[algo].write(chunk);
+			});
 		});
 
 		res.on("end", function() {
+			if(
+				has(res.headers, "content-length") &&
+				length !== parseInt(res.headers["content-length"]))
+			{
+				return cb(errno.createError(errno.ERR_TRUNCATED), null);
+			}
 			var hashes = {};
 			Object.keys(hashers).forEach(function(algo) {
 				hashers[algo].end();
