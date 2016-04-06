@@ -33,6 +33,7 @@ db_pool.open = function(cb) {
 	}
 };
 db_pool.close = function(db) {
+	if(-1 !== db_available.indexOf(db)) throw new Error("Same DB closed twice");
 	if(db_waiting.length) {
 		db_waiting.pop()(db);
 	} else {
