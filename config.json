@@ -2,6 +2,5 @@
 	"key_path": null,
 	"crt_path": null,
 	"port_tls": 8001,
-	"port_raw": 8000,
-	"db_path": "./archive.db"
+	"port_raw": 8000
 }

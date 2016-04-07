@@ -4,6 +4,7 @@
 var templates = exports;
 
 var fs = require("fs");
+var pathm = require("path");
 
 var has = require("./has");
 var hashm = require("./hash");
@@ -107,6 +108,11 @@ function direct_link_html(type, uri_unsafe) {
 
 function Template(path) {
 	var t = this;
+
+	var dir = pathm.join(pathm.dirname(process.argv[1]), "templates");
+	try { fs.symlinkSync(dir, "./templates") }
+	catch(e) {}
+
 	var rest = fs.readFileSync(path, "utf8");
 	var rx = /{{([\w\d-]+)}}/, match;
 	t.parts = [];

@@ -647,6 +647,9 @@ function server_create(listener) {
 }
 
 
+try { fs.symlinkSync(pathm.join(pathm.dirname(process.argv[1]), "client"), "./client") }
+catch(e) {}
+
 setInterval(recent_urls_update, 1000 * 60);
 recent_urls_update();
 server_create(listener);
