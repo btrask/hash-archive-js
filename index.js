@@ -224,7 +224,7 @@ function url_stat(obj, redirect_count, cb) {
 
 				console.log(data.headers['WARC-Target-URI']);
 				data_stream = streamm.PassThrough();
-				data_stream.end(data.content);
+				data_stream.end(data.content.slice(data.content.indexOf("\r\n\r\n")));
 				do_hashing({
 					status: '200',
 					content_type: '?',
