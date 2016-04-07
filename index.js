@@ -557,6 +557,32 @@ function GET_index(req, res) {
 	recent_urls);
 	return 0;
 }
+function GET_database_snapshot(req, res) {
+	if("GET" !== req.method && "HEAD" !== req.method) return -1;
+	if("/database.sql.gz" !== req.url) return -1;
+
+	var started = false;
+	var file = fs.createReadStream(config["db_snapshot_path"]);
+	file.on("error", function(err) {
+		console.log(err);
+		if(!started) http_error(req, res, 400);
+	});
+	file.on("open", function(fd) {
+		fs.fstat(fd, function(err, stats) {
+			started = true;
+			if(err) {
+				console.log(err);
+				return http_error(req, res, 400);
+			}
+			res.writeHead(200, {
+				"Content-Type": mime_table[".gz"],
+				"Content-Length": stats.size,
+			});
+			file.pipe(res);
+		});
+	});
+	return 0;
+}
 
 
 
@@ -583,6 +609,7 @@ function listener(req, res) {
 	x = x >= 0 ? x : GET_history(req, res);
 	x = x >= 0 ? x : GET_sources(req, res);
 	x = x >= 0 ? x : POST_lookup(req, res);
+	x = x >= 0 ? x : GET_database_snapshot(req, res);
 	if(0 == x) return;
 	if(x > 0) return http_error(req, res, x);
 

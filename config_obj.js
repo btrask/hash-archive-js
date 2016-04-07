@@ -12,6 +12,8 @@ if(!has(config, "crt_path")) config["crt_path"] = "./server.crt";
 if(!has(config, "port_tls")) config["port_tls"] = 443;
 if(!has(config, "port_raw")) config["port_raw"] = 80;
 if(!has(config, "db_path")) config["db_path"] = "./archive.db";
+if(!has(config, "db_snapshot_path")) config["db_snapshot_path"] = "./database.sql.gz";
+if(!has(config, "tmp_dir")) config["tmp_dir"] = "./tmp";
 if(!has(config, "user_agent")) config["user_agent"] = "Hash Archive (https://github.com/btrask/hash-archive)";
 
 // Note: This option is misleading/not very useful.

@@ -29,3 +29,53 @@ work_queue.get = function(cb) {
 	});
 };
 
+
+// TODO: This should probably be a separate file?
+// Or come up with a better grouping...
+
+var cluster = require("cluster");
+var crypto = require("crypto");
+var fs = require("fs");
+var os = require("os");
+var pathm = require("path");
+var spawn = require("child_process").spawn;
+var zlib = require("zlib");
+
+var config = require("./config_obj");
+
+function mkdirpSync(path, mode) {
+	var err = null;
+	try { fs.mkdirSync(path, mode); }
+	catch(e) { err = e; }
+	if(!err) return;
+	if("EEXIST" === err.code) return;
+	if("ENOENT" !== err.code) throw err;
+	mkdirpSync(pathm.dirname(path), mode);
+	fs.mkdirSync(path, mode);
+}
+
+function db_dump() {
+	var tmp = pathm.join(config["tmp_dir"], crypto.randomBytes(8).toString("hex"));
+	var sqlite = spawn("sqlite3", [config["db_path"], ".dump"]);
+	var gzip = new zlib.Gzip({ level: 9 });
+	var file = fs.createWriteStream(tmp, { mode: parseInt("600", 8) });
+	sqlite.stdout.pipe(gzip).pipe(file);
+	file.on("finish", function() {
+		fs.rename(tmp, config["db_snapshot_path"]);
+	});
+	file.on("error", function(err) {
+		console.log(err);
+	});
+}
+
+if(cluster.isMaster) {
+	mkdirpSync(config["tmp_dir"], parseInt("700", 8));
+	var exists = true;
+	try { fs.statSync(config["db_snapshot_path"]); }
+	catch(e) { exists = false; }
+	setTimeout(function() {
+		db_dump();
+		setInterval(db_dump, 1000 * 60 * 60 * 24);
+	}, !exists ? 0 : 1000 * 60 * 10);
+}
+
