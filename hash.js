@@ -3,6 +3,8 @@
 
 var hashm = exports;
 
+var crypto = require("crypto");
+
 var multihash = require("multihashes");
 var bs58 = require("bs58");
 
@@ -98,4 +100,10 @@ hashm.variants = function(algo, data) {
 	}
 	return obj;
 }
+
+hashm.hash_buf = function(algo, buf, enc) {
+	var hasher = crypto.createHash(algo);
+	hasher.end(buf, enc);
+	return hasher.read();
+};
 

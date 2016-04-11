@@ -159,14 +159,28 @@ templates.index = function(stream, example_url, example_hash, recent_urls) {
 		recent.push(item_html("web-url", "", url));
 	});
 
+	var critical = [
+		"https://mirrors.kernel.org/linuxmint//stable/17.3/linuxmint-17.3-cinnamon-64bit.iso",
+		"https://code.jquery.com/jquery-2.2.3.min.js",
+		"https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js",
+		"https://ftp-master.debian.org/keys/archive-key-8.asc",
+		"http://cdimage.debian.org/debian-cd/8.4.0/amd64/iso-cd/SHA256SUMS",
+		"http://heanet.dl.sourceforge.net/project/keepass/KeePass%202.x/2.32/KeePass-2.32.zip",
+		"http://openwall.com/signatures/openwall-signatures.asc",
+		"http://rpmfusion.org/keys?action=AttachFile&do=view&target=RPM-GPG-KEY-rpmfusion-free-fedora23",
+	].map(function(url) {
+		return item_html("web-url", "", url, false);
+	});
+
 	index.write(stream, {
 		"web-url-example": link_html("web-url", example_url),
 		"hash-uri-example": link_html("hash-uri", variants["hash-uri"]),
 		"named-info-example": link_html("named-info", variants["named-info"]),
 		"multihash-example": link_html("multihash", variants["multihash"]),
 		"prefix-example": link_html("prefix", variants["prefix"]),
-		"examples": examples.join(""),
-		"recent": recent.join(""),
+		"examples": examples.join("\n"),
+		"recent-list": recent.join("\n"),
+		"critical-list": critical.join("\n"),
 	});
 	stream.end();
 };
@@ -179,10 +193,15 @@ var history = {
 	error: new Template("./templates/history-error.html"),
 };
 templates.history = function(stream, url, outdated, responses) {
+	var url_hash = hashm.hash_buf("sha256", url, "utf8").toString("hex");
+
 	history.header.write(stream, {
 		"url": url,
 		"url-link": direct_link_html("web-url", url),
 		"outdated": outdated ? history.outdated.toString({}) : "",
+		"wayback-url": "https://web.archive.org/web/*/"+html_escape(url),
+		"google-url": "https://webcache.googleusercontent.com/search?q=cache:"+html_escape(url),
+		"virustotal-url": "https://www.virustotal.com/en/url/"+html_escape(url_hash)+"/analysis/",
 	});
 
 	for(var i = 0, j; i < responses.length; i = j) {
@@ -251,6 +270,7 @@ templates.sources = function(stream, hash, history) {
 		"hash": hash,
 		"hash-link": direct_link_html(obj.type, hash),
 		"weak-hash-warning": warning,
+		"virustotal-url": "https://www.virustotal.com/en/file/"+html_escape(obj.data.toString("hex"))+"/analysis/",
 	});
 
 	for(var i = 0; i < history.length; i++) {

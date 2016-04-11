@@ -24,7 +24,29 @@ Example lookups
 
 <div class="entry margin">
 Recently fetched URLs
-<ul id="recent-list">{{recent}}</ul>
+<ul id="recent-list">{{recent-list}}</ul>
+</div>
+
+<div class="entry margin">
+Some "critical" URLs
+<ul id="critical-list">{{critical-list}}</ul>
+<a href="#TODO">More...</a>
+</div>
+
+<div class="entry margin">
+<div>About</div>
+<p>I made this site because so many Linux distributions still don't provide easy+secure download options in <code>$YEAR</code>. Using this archive (and hopefully other sources), you can have at least a small amount of confidence in the authenticity of your ISOs. Just put in the URL of the ISO, torrent file, or any other HTTP (or HTTPS) resource and we'll request the file and compute the hash for you using a wide variety of algorithms.</p>
+
+<p>For sites that don't support HTTPS, this is a little bit like domain validation for certificates. Unless someone can intercept your local traffic <i>and</i> our traffic to a site, you'll be able to spot <a href="https://en.wikipedia.org/wiki/Man-in-the-middle_attack">MITM attacks</a>. This level of security isn't great, but it's better than nothing.</p>
+
+<p>For sites that <i>do</i> support HTTPS, validating hashes from a third party is still useful. It can tell you if the server was compromised (like <a href="http://blog.linuxmint.com/?p=2994">Linux Mint recently</a>) or if the site is trying to make stealth updates (like on political campaign sites). This is a little bit like <a href="https://www.certificate-transparency.org/">Certificate Transparency</a>, or, of course, the Internet Archive's <a href="https://archive.org/web/">Wayback Machine</a>.</p>
+
+<p>You can also do reverse lookups to find out what URLs provide (or used to provide) a given hash. This might be useful for finding mirrors (although it only works if we've previously crawled those URLs).</p>
+
+<ul>
+<li><a href="./database.sql.gz">Download the latest database snapshot</a>
+<li><a href="https://github.com/btrask/hash-archive">Site source code</a>
+</ul>
 </div>
 
 <div class="entry margin">
@@ -53,29 +75,17 @@ Recently fetched URLs
 <p>If you right click the <sup>[#]</sup> and choose "copy link," you'll get a link you can paste into a resolver (such as StrongLink) or chat/email.</p>
 
 <p><i>What about IPFS support?</i></p>
-<p>IPFS <a href="https://github.com/jbenet/multihash">MultiHashes</a> are supported. However, proper IPFS file hashes are more complex. See <a href="">here</a> for all the gory details.</p>
+<p>IPFS <a href="https://github.com/jbenet/multihash">MultiHashes</a> are supported. However, proper IPFS file hashes are more complex. See <a href="https://github.com/ipfs/go-ipfs/issues/1953">here</a> for all the gory details.</p>
 
 <p><i>Is there an API?</i></p>
 <p>Not yet, but support is planned. For now, please use a <a href="./database.sql.gz">database snapshot</a>.</p>
 
 <p><i>Can you add a new algorithm?</i></p>
 <p>Yes, if: 1. the algorithm is relatively efficient, 2. it's in widespread use or in high demand, and 3. if there is a drop-in Node.js module we can use. Please check our <a href="https://github.com/btrask/hash-archive/issues">issues list</a> and open a new one if it hasn't been proposed already.</p>
-</div>
 
-<div class="entry margin">
-<div>About</div>
-<p>I made this site because so many Linux distributions still don't provide easy+secure download options in <code>$YEAR</code>. Using this archive (and hopefully other sources), you can have at least a small amount of confidence in the authenticity of your ISOs. Just put in the URL of the ISO, torrent file, or any other HTTP (or HTTPS) resource and we'll request the file and compute the hash for you using a wide variety of algorithms.</p>
+<p><i>Why not use the Web of Trust?</i></p>
+<p>This is a link in the Web of Trust.</p>
 
-<p>For sites that don't support HTTPS, this is a little bit like domain validation for certificates. Unless someone can intercept your local traffic <i>and</i> our traffic to a site, you'll be able to spot <a href="https://en.wikipedia.org/wiki/Man-in-the-middle_attack">MITM attacks</a>. This level of security isn't great, but it's better than nothing.</p>
-
-<p>For sites that <i>do</i> support HTTPS, validating hashes from a third party is still useful. It can tell you if the server was compromised (like <a href="http://blog.linuxmint.com/?p=2994">Linux Mint recently</a>) or if the site is trying to make stealth updates (like on political campaign sites). This is a little bit like <a href="https://www.certificate-transparency.org/">Certificate Transparency</a>, or, of course, the Internet Archive's <a href="https://archive.org/web/">Wayback Machine</a>.</p>
-
-<p>You can also do reverse lookups to find out what URLs provide (or used to provide) a given hash. This might be useful for finding mirrors (although it only works if we've previously crawled those URLs).</p>
-
-<ul>
-<li><a href="./database.sql.gz">Download the latest database snapshot</a>
-<li><a href="https://github.com/btrask/hash-archive">Site source code</a>
-<li>Created by <a href="https://bentrask.com">Ben Trask</a>
-</ul>
+<p class="footer">Created by <a href="https://bentrask.com">Ben Trask</a> in association with <a href="mailto:jesse@wefu.org">Jesse Weinstein</a> and <a href="https://archivelab.org">Archive Labs</a></p>
 </div>
 
