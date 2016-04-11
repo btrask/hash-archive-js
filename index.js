@@ -583,6 +583,13 @@ function GET_database_snapshot(req, res) {
 	});
 	return 0;
 }
+function GET_critical(req, res) {
+	if("GET" !== req.method && "HEAD" !== req.method) return -1;
+	if("/critical/" !== req.url) return -1;
+
+	templates.critical(res);
+	return 0;
+}
 
 
 
@@ -610,6 +617,7 @@ function listener(req, res) {
 	x = x >= 0 ? x : GET_sources(req, res);
 	x = x >= 0 ? x : POST_lookup(req, res);
 	x = x >= 0 ? x : GET_database_snapshot(req, res);
+	x = x >= 0 ? x : GET_critical(req, res);
 	if(0 == x) return;
 	if(x > 0) return http_error(req, res, x);
 

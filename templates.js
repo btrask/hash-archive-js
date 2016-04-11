@@ -6,6 +6,8 @@ var templates = exports;
 var fs = require("fs");
 var pathm = require("path");
 
+var commonmark = require("commonmark");
+
 var has = require("./has");
 var hashm = require("./hash");
 var errno = require("./errno");
@@ -288,4 +290,27 @@ templates.sources = function(stream, hash, history) {
 	sources.footer.write(stream, {});
 	stream.end();
 };
+
+
+var critical = {
+	header: new Template("./templates/critical-header.html"),
+	footer: new Template("./templates/critical-footer.html"),
+
+	urls: critical_urls_html(fs.readFileSync(pathm.join(pathm.dirname(process.argv[1]), "CRITICAL_URLS.md"), "utf8")),
+};
+templates.critical = function(stream) {
+	critical.header.write(stream);
+
+	// TODO
+	stream.write(critical.urls, "utf8");
+
+	critical.footer.write(stream);
+	stream.end();
+};
+function critical_urls_html(str) {
+	var parser = new commonmark.Parser();
+	var renderer = new commonmark.HtmlRenderer();
+	var ast = parser.parse(str);
+	return renderer.render(ast);
+}
 
