@@ -1,8 +1,8 @@
 # List of "Critical" URLs
 
-These URLs are widely and/or critically relied on for security purposes.
+These URLs are widely and/or critically relied on for security purposes. Only recent and popular versions should generally be included, although more can be included when the download mechanism is particularly insecure.
 
-Please suggest more!
+HTTPS and otherwise "secure" downloads are still accepted, because servers can get hacked, etc. This just provides another layer of security.
 
 Given the nature of a list like this, it may never be complete. Feel free to open pull requests on our [GitHub page](https://github.com/btrask/hash-archive/pulls).
 
@@ -62,15 +62,24 @@ Try to keep them somewhat organized :)
 - https://dl.amnesia.boum.org/tails/tails/stable/tails-i386-2.2.1/tails-i386-2.2.1.iso
 - https://tails.boum.org/torrents/files/tails-i386-2.2.1.iso.sig
 
+## Apple
+
+[OS X](https://www.apple.com/osx/)
+
+- http://support.apple.com/downloads/DL1869/en_US/osxupdcombo10.11.4.dmg
+- http://support.apple.com/downloads/DL1832/en_US/osxupdcombo10.10.5.dmg
+
 ## Developer tools and libraries
 
-Source control
+[Git](https://git-scm.com)
 
 - https://www.kernel.org/pub/software/scm/git/git-2.8.1.tar.gz
 - https://www.kernel.org/pub/software/scm/git/git-2.8.1.tar.sign
 
-Password hashes
+[bcrypt](http://openwall.com/crypt/)
 
+- http://openwall.com/crypt/crypt_blowfish-1.3.tar.gz
+- http://openwall.com/crypt/crypt_blowfish-1.3.tar.gz.sign
 - http://openwall.com/signatures/openwall-signatures.asc
 - http://openwall.com/signatures/openwall-online-signatures.asc
 
@@ -82,9 +91,8 @@ JavaScript on CDNs
 - https://code.jquery.com/jquery-2.2.3.min.js
 - https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js
 
-Password managers
+[KeePass](https://www.keepassx.org/)
 
-- http://heanet.dl.sourceforge.net/project/keepass/KeePass%202.x/2.32/KeePass-2.32.zip
 - https://www.keepassx.org/releases/2.0.2/keepassx-2.0.2.tar.gz
 - https://www.keepassx.org/releases/2.0.2/keepassx-2.0.2.tar.gz.sig
 - https://www.keepassx.org/releases/2.0.2/KeePassX-2.0.2.dmg
@@ -92,8 +100,9 @@ Password managers
 - https://www.keepassx.org/releases/2.0.2/KeePassX-2.0.2.zip
 - https://www.keepassx.org/releases/2.0.2/KeePassX-2.0.2.zip.sig
 - https://www.keepassx.org/gpg/0x83135D45.asc
+- http://heanet.dl.sourceforge.net/project/keepass/KeePass%202.x/2.32/KeePass-2.32.zip
 
-Security
+[GNU Privacy Guard](https://gnupg.org/)
 
 - https://gnupg.org/signature_key.html
 - https://gnupg.org/download/integrity_check.html
@@ -104,6 +113,16 @@ Security
 - https://gnupg.org/ftp/gcrypt/gnupg/gnupg-1.4.20.tar.bz2
 - https://gnupg.org/ftp/gcrypt/gnupg/gnupg-1.4.20.tar.bz2.sig
 
+[Tor](https://www.torproject.org/)
+
+- https://www.torproject.org/dist/torbrowser/5.5.4/tor-browser-linux64-5.5.4_en-US.tar.xz
+- https://www.torproject.org/dist/torbrowser/5.5.4/tor-browser-linux64-5.5.4_en-US.tar.xz.asc
+- https://www.torproject.org/dist/torbrowser/5.5.4/tor-browser-linux32-5.5.4_en-US.tar.xz
+- https://www.torproject.org/dist/torbrowser/5.5.4/tor-browser-linux32-5.5.4_en-US.tar.xz.asc
+- https://www.torproject.org/dist/torbrowser/5.5.4/torbrowser-install-5.5.4_en-US.exe
+- https://www.torproject.org/dist/torbrowser/5.5.4/torbrowser-install-5.5.4_en-US.exe.asc
+- https://www.torproject.org/dist/torbrowser/5.5.4/TorBrowser-5.5.4-osx64_en-US.dmg
+- https://www.torproject.org/dist/torbrowser/5.5.4/TorBrowser-5.5.4-osx64_en-US.dmg.asc
 
 
 
