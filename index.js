@@ -155,6 +155,7 @@ function worker() {
 function request_error(req, err) {
 	if("ENOTFOUND" === err.errno) err.errno = errno.ERR_NOTFOUND; // Node bug
 	if("ECONNREFUSED" === err.errno) err.errno = errno.ERR_CONNREFUSED;
+	if("ETIMEDOUT" === err.errno) err.errno = errno.ERR_TIMEDOUT;
 	if("string" === typeof err.errno) {
 		console.log("Unknown error code "+err.errno);
 		err.errno = errno.ERR_UNKNOWN;
