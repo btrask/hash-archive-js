@@ -12,11 +12,26 @@ var db_close = db_pool.close;
 
 var config = require("./config_obj");
 
+// https://stackoverflow.com/a/6274381
+function shuffle(a) {
+	var j, x, i;
+	for (i = a.length; i; i -= 1) {
+		j = Math.floor(Math.random() * i);
+		x = a[i - 1];
+		a[i - 1] = a[j];
+		a[j] = x;
+	}
+}
+
 var bored_workers = [];
 function send_work(worker, msg) {
 	work_queue.get(function(err, req) {
 		if(err) throw err;
-		if(!req) return bored_workers.push(worker);
+		if(!req) {
+			bored_workers.push(worker);
+			shuffle(bored_workers); // Fix pessimal scheduling.
+			return;
+		}
 		worker.send({ cmd: "work", req: req });
 	});
 }
