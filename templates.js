@@ -6,8 +6,7 @@ var templates = exports;
 var fs = require("fs");
 var pathm = require("path");
 
-var commonmark = require("commonmark");
-
+var markdown = require("./markdown");
 var has = require("./has");
 var hashm = require("./hash");
 var errno = require("./errno");
@@ -308,9 +307,6 @@ templates.critical = function(stream) {
 	stream.end();
 };
 function critical_urls_html(str) {
-	var parser = new commonmark.Parser();
-	var renderer = new commonmark.HtmlRenderer();
-	var ast = parser.parse(str);
-	return renderer.render(ast);
+	return markdown.run(str);
 }
 
