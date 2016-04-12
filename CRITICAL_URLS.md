@@ -12,8 +12,18 @@ Try to keep them somewhat organized :)
 
 [Linux Mint](https://linuxmint.com)
 
-- http://torrents.linuxmint.com/torrents/linuxmint-17.3-cinnamon-64bit.iso.torrent
+- https://torrents.linuxmint.com/torrents/linuxmint-17.3-cinnamon-64bit.iso.torrent
+- https://torrents.linuxmint.com/torrents/linuxmint-17.3-cinnamon-nocodecs-64bit.iso.torrent
+- https://torrents.linuxmint.com/torrents/linuxmint-17.3-mate-64bit.iso.torrent
+- https://torrents.linuxmint.com/torrents/linuxmint-17.3-mate-nocodecs-64bit.iso.torrent
+- https://torrents.linuxmint.com/torrents/linuxmint-17.3-kde-64bit.iso.torrent
+- https://torrents.linuxmint.com/torrents/linuxmint-17.3-xfce-64bit.iso.torrent
 - https://mirrors.kernel.org/linuxmint//stable/17.3/linuxmint-17.3-cinnamon-64bit.iso
+- https://mirrors.kernel.org/linuxmint//stable/17.3/linuxmint-17.3-cinnamon-nocodecs-64bit.iso
+- https://mirrors.kernel.org/linuxmint//stable/17.3/linuxmint-17.3-mate-64bit.iso
+- https://mirrors.kernel.org/linuxmint//stable/17.3/linuxmint-17.3-mate-nocodecs-64bit.iso
+- https://mirrors.kernel.org/linuxmint//stable/17.3/linuxmint-17.3-kde-64bit.iso
+- https://mirrors.kernel.org/linuxmint//stable/17.3/linuxmint-17.3-xfce-64bit.iso
 
 [Debian](https://www.debian.org)
 
@@ -62,6 +72,17 @@ Try to keep them somewhat organized :)
 - https://dl.amnesia.boum.org/tails/tails/stable/tails-i386-2.2.1/tails-i386-2.2.1.iso
 - https://tails.boum.org/torrents/files/tails-i386-2.2.1.iso.sig
 
+[Raspbian](https://www.raspbian.org/)
+
+- https://downloads.raspberrypi.org/raspbian_latest.torrent
+- https://downloads.raspberrypi.org/raspbian_latest
+- https://downloads.raspberrypi.org/raspbian_lite_latest.torrent
+- https://downloads.raspberrypi.org/raspbian_lite_latest
+- https://downloads.raspberrypi.org/NOOBS_latest.torrent
+- https://downloads.raspberrypi.org/NOOBS_latest
+- https://downloads.raspberrypi.org/NOOBS_lite_latest.torrent
+- https://downloads.raspberrypi.org/NOOBS_lite_latest
+
 ## Apple
 
 [OS X](https://www.apple.com/osx/)
@@ -83,6 +104,26 @@ Try to keep them somewhat organized :)
 - http://openwall.com/signatures/openwall-signatures.asc
 - http://openwall.com/signatures/openwall-online-signatures.asc
 
+[llvm/clang](http://llvm.org/)
+
+- http://llvm.org/releases/3.8.0/llvm-3.8.0.src.tar.xz
+- http://llvm.org/releases/3.8.0/llvm-3.8.0.src.tar.xz.sig
+- http://llvm.org/releases/3.8.0/cfe-3.8.0.src.tar.xz
+- http://llvm.org/releases/3.8.0/cfe-3.8.0.src.tar.xz.sig
+- http://llvm.org/releases/3.8.0/clang+llvm-3.8.0-x86_64-apple-darwin.tar.xz
+- http://llvm.org/releases/3.8.0/clang+llvm-3.8.0-x86_64-apple-darwin.tar.xz.sig
+- http://llvm.org/releases/3.8.0/clang+llvm-3.8.0-x86_64-linux-gnu-debian8.tar.xz
+- http://llvm.org/releases/3.8.0/clang+llvm-3.8.0-x86_64-linux-gnu-debian8.tar.xz.sig
+
+[GCC](https://gcc.gnu.org/)
+
+- https://gcc.gnu.org/mirrors.html
+- http://mirrors-usa.go-parts.com/gcc/snapshots/4.9-20160406/gcc-4.9-20160406.tar.bz2
+- http://mirrors-usa.go-parts.com/gcc/snapshots/4.9-20160406/sha512.sum
+- http://mirrors-usa.go-parts.com/gcc/snapshots/5-20160405/gcc-5-20160405.tar.bz2
+- http://mirrors-usa.go-parts.com/gcc/snapshots/5-20160405/sha512.sum
+- http://mirrors-usa.go-parts.com/gcc/snapshots/6-20160410/gcc-6-20160410.tar.bz2
+- http://mirrors-usa.go-parts.com/gcc/snapshots/6-20160410/sha512.sum
 
 ## Other Software
 
@@ -124,6 +165,10 @@ JavaScript on CDNs
 - https://www.torproject.org/dist/torbrowser/5.5.4/TorBrowser-5.5.4-osx64_en-US.dmg
 - https://www.torproject.org/dist/torbrowser/5.5.4/TorBrowser-5.5.4-osx64_en-US.dmg.asc
 
+[Transmission](https://www.transmissionbt.com/)
+
+- https://download.transmissionbt.com/files/Transmission-2.92.dmg
+- https://download.transmissionbt.com/files/transmission-2.92.tar.xz
 
 
 
