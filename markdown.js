@@ -133,7 +133,7 @@ function md_convert_urls(iter) {
 		face = new commonmark.Node("text");
 		sup_open.onEnter = "<sup>[";
 		sup_close.onEnter = "]</sup>";
-		face.literal = "#";
+		face.literal = "^";
 		hashlink.appendChild(face);
 
 		node.insertAfter(sup_open);
