@@ -156,8 +156,9 @@ function request_error(req, err) {
 	if("ENOTFOUND" === err.errno) err.errno = errno.ERR_NOTFOUND; // Node bug
 	if("ECONNREFUSED" === err.errno) err.errno = errno.ERR_CONNREFUSED;
 	if("ETIMEDOUT" === err.errno) err.errno = errno.ERR_TIMEDOUT;
+	if("CERT_HAS_EXPIRED" === err.code) err.errno = errno.ERR_CERTEXPIRED;
 	if(isNaN(err.errno)) {
-		console.log("Unknown error "+err);
+		console.log("Unknown error ", util.inspect(err));
 		err.errno = errno.ERR_UNKNOWN;
 	}
 	return { status: err.errno, response_time: +new Date, hashes: {} };

@@ -7,6 +7,7 @@ errno.ERR_CONNREFUSED = -12403;
 errno.ERR_REDIRECT = -12404;
 errno.ERR_TRUNCATED = -12405;
 errno.ERR_TIMEDOUT = -12406;
+errno.ERR_CERTEXPIRED = -12407;
 
 errno.http_strerror = function(status) {
 	switch(status) {
@@ -78,6 +79,7 @@ errno.strerror = function(code) {
 	case errno.ERR_REDIRECT: return "Too many redirects";
 	case errno.ERR_TRUNCATED: return "Truncated response";
 	case errno.ERR_TIMEDOUT: return "Timed out";
+	case errno.ERR_CERTEXPIRED: return "Certificate expired";
 	}
 	return errno.http_strerror(code);
 };
