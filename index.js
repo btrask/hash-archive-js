@@ -298,7 +298,10 @@ function request_bump(db, url, cb) {
 			"ORDER BY req.request_id DESC LIMIT 1",
 			url,
 		function(err, row) {
-			if(err) return cb(err, null);
+			if(err) {
+				db.run("ROLLBACK");
+				return cb(err, null);
+			}
 			var pending, outdated;
 			if(!row) {
 				pending = false;
@@ -319,7 +322,10 @@ function request_bump(db, url, cb) {
 					"VALUES (?, ?)",
 					url, +new Date,
 				function(err) {
-					if(err) return cb(err, null);
+					if(err) {
+						db.run("ROLLBACK");
+						return cb(err, null);
+					}
 					db.run("COMMIT", function(err) {
 						if(err) return cb(err, null);
 						if(cluster.isMaster) {
@@ -349,10 +355,16 @@ function response_store(db, req, res, cb) {
 			req.request_id, res.status, res.response_time,
 			res.content_type, res.etag, res.last_modified, res.date,
 		function(err) {
-			if(err) return cb(err);
+			if(err) {
+				db.run("ROLLBACK");
+				return cb(err);
+			}
 			var response_id = this.lastID;
 			response_store_hashes(db, response_id, res.hashes, function(err) {
-				if(err) return cb(err);
+				if(err) {
+					db.run("ROLLBACK");
+					return cb(err);
+				}
 				db.run("COMMIT", function(err) {
 					cb(err);
 				});
