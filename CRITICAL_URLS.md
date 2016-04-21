@@ -132,6 +132,12 @@ JavaScript on CDNs
 - https://code.jquery.com/jquery-2.2.3.min.js
 - https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js
 
+[Firefox](https://getfirefox.com)
+- https://download.mozilla.org/?product=firefox-45.0.2-SSL&os=win64&lang=en-US
+- https://download.mozilla.org/?product=firefox-45.0.2-SSL&os=osx&lang=en-US
+- https://download.mozilla.org/?product=firefox-45.0.2-SSL&os=linux&lang=en-US
+- https://download.mozilla.org/?product=firefox-45.0.2-SSL&os=linux64&lang=en-US
+
 [KeePass](https://www.keepassx.org/)
 
 - https://www.keepassx.org/releases/2.0.2/keepassx-2.0.2.tar.gz
