@@ -1,12 +1,12 @@
 # List of "Critical" URLs
 
-These URLs are widely and/or critically relied on for security purposes. Only recent and popular versions should generally be included, although more can be included when the download mechanism is particularly insecure.
+These URLs are widely and/or critically relied on for security purposes, onto which researchers should perhaps focus extra attention and monitoring.
 
-HTTPS and otherwise "secure" downloads are still accepted, because servers can get hacked, etc. This just provides another layer of security.
+Only recent or popular versions of e.g. downloads should generally be included, although more can be included when the download mechanism is particularly insecure.
 
-Given the nature of a list like this, it may never be complete. Feel free to open pull requests on our [GitHub page](https://github.com/btrask/hash-archive/pulls).
+HTTPS and otherwise "secure" downloads are still accepted, because servers can get hacked, etc. This monitoring just provides another layer of security.
 
-Try to keep them somewhat organized :)
+Given the nature of a list like this, it may never be complete. Feel free to open pull requests on our [GitHub page](https://github.com/btrask/hash-archive/pulls). Try to keep them somewhat organized :)
 
 ## Linux
 
