@@ -69,7 +69,7 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 
 [Tails](https://tails.boum.org)
 
-- http://dl.amnesia.boum.org/tails/tails/stable/tails-i386-2.2.1/tails-i386-2.2.1.iso
+- http://dl.amnesia.boum.org/tails/stable/tails-i386-2.2.1/tails-i386-2.2.1.iso
 - https://tails.boum.org/torrents/files/tails-i386-2.2.1.iso.sig
 
 [Raspbian](https://www.raspbian.org/)
