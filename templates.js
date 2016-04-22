@@ -273,7 +273,7 @@ templates.sources = function(stream, hash, history) {
 		"hash-link": direct_link_html(obj.type, hash),
 		"weak-hash-warning": warning,
 		"google-url": "https://www.google.com/search?q="+html_escape(obj.data.toString("hex")),
-		"duckduckgo-url": "https://duckduckgo.com/search?q="+html_escape(obj.data.toString("hex")),
+		"duckduckgo-url": "https://duckduckgo.com/?q="+html_escape(obj.data.toString("hex")),
 		"virustotal-url": "https://www.virustotal.com/en/file/"+html_escape(obj.data.toString("hex"))+"/analysis/",
 	});
 
