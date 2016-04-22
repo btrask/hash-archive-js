@@ -126,7 +126,6 @@ function md_convert_urls(iter) {
 
 		hashlink = new commonmark.Node("link");
 		hashlink.destination = URI;
-		hashlink.title = "Hash URI (right click and choose copy link)";
 
 		sup_open = new commonmark.Node("custom_inline");
 		sup_close = new commonmark.Node("custom_inline");
@@ -145,6 +144,42 @@ function md_convert_urls(iter) {
 		node.destination = "/history/"+URI;
 	}
 }
+function md_convert_hashes(iter) {
+	var event, node, URI, hashlink, sup_open, sup_close, face;
+	for(;;) {
+		event = iter.next();
+		if(!event) break;
+		if(event.entering) continue;
+		node = event.node;
+		if("link" !== node.type) continue;
+
+		URI = node.destination;
+		if(!URI) continue;
+		if("hash:" !== URI.toLowerCase().slice(0, 5) &&
+			"ni:" !== URI.toLowerCase().slice(0, 3)
+		) continue;
+
+		hashlink = new commonmark.Node("link");
+		hashlink.destination = URI;
+		hashlink.title = "Hash URI (right click and choose copy link)";
+
+		sup_open = new commonmark.Node("custom_inline");
+		sup_close = new commonmark.Node("custom_inline");
+		face = new commonmark.Node("text");
+		sup_open.onEnter = "<sup>[";
+		sup_close.onEnter = "]</sup>";
+		face.literal = "#";
+		hashlink.appendChild(face);
+
+		node.insertAfter(sup_open);
+		sup_open.insertAfter(hashlink);
+		hashlink.insertAfter(sup_close);
+
+		iter.resumeAt(sup_close, false);
+
+		node.destination = "/sources/"+URI;
+	}
+}
 
 md.run = function(str) {
 	var node = normalize(parser.parse(str));
@@ -152,6 +187,7 @@ md.run = function(str) {
 	md_escape_inline(node.walker());
 	md_autolink(node.walker());
 	md_convert_urls(node.walker());
+	md_convert_hashes(node.walker());
 	// TODO: Use target=_blank for links.
 	return renderer.render(node);
 };

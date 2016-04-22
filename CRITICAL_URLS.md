@@ -177,4 +177,8 @@ JavaScript on CDNs
 - https://download.transmissionbt.com/files/transmission-2.92.tar.xz
 
 
+## Pinned hashes
+
+- [WinAmp 2.95](hash://sha256/ef1423999cbefd4f2a3a98acee2b194a4260268cb4517abda9f12963e866b7e5)
+
 
