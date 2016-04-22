@@ -212,7 +212,7 @@ templates.history = function(stream, url, outdated, responses) {
 				"date": date_html("As of", res.response_time),
 				"error": errno.strerror(res.status)+" ("+res.status+")",
 			});
-			j++;
+			j = i+1;
 			continue;
 		}
 		var dups = [];
