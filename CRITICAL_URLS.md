@@ -179,6 +179,6 @@ JavaScript on CDNs
 
 ## Pinned hashes
 
-- [Skype 3.8.0.118](hash://sha256/bf94e0c33a99811bf89f6761caea891ab2fd331ac831f2f48c440b238db93f24)
-- [WinAmp 2.95](hash://sha256/ef1423999cbefd4f2a3a98acee2b194a4260268cb4517abda9f12963e866b7e5)
+- [Skype 3.8.0.118 (Windows)](hash://sha256/bf94e0c33a99811bf89f6761caea891ab2fd331ac831f2f48c440b238db93f24)
+- [WinAmp 2.95 (Windows)](hash://sha256/ef1423999cbefd4f2a3a98acee2b194a4260268cb4517abda9f12963e866b7e5)
 
