@@ -186,6 +186,16 @@ JavaScript on CDNs
 - https://www.torproject.org/dist/torbrowser/5.5.4/TorBrowser-5.5.4-osx64_en-US.dmg
 - https://www.torproject.org/dist/torbrowser/5.5.4/TorBrowser-5.5.4-osx64_en-US.dmg.asc
 
+[VirtualBox](https://www.virtualbox.org)
+
+- http://download.virtualbox.org/virtualbox/5.0.20/VirtualBox-5.0.20-106931-Win.exe
+- http://download.virtualbox.org/virtualbox/5.0.20/VirtualBox-5.0.20-106931-OSX.dmg
+- http://download.virtualbox.org/virtualbox/5.0.20/virtualbox-5.0_5.0.20-106931~Ubuntu~xenial_amd64.deb
+- http://download.virtualbox.org/virtualbox/5.0.20/virtualbox-5.0_5.0.20-106931~Debian~jessie_amd64.deb
+- http://download.virtualbox.org/virtualbox/5.0.20/VirtualBox-5.0-5.0.20_106931_openSUSE132-1.x86_64.rpm
+- http://download.virtualbox.org/virtualbox/5.0.20/VirtualBox-5.0.20-106931-SunOS.tar.gz
+- https://www.virtualbox.org/download/hashes/5.0.20/SHA256SUMS
+
 [Transmission](https://www.transmissionbt.com/)
 
 - https://download.transmissionbt.com/files/Transmission-2.92.dmg
