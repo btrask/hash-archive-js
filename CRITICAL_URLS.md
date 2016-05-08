@@ -82,6 +82,18 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 - https://mirrors.kernel.org/qubes/iso/Qubes-R3.1-x86_64.iso.DIGESTS
 - https://mirrors.kernel.org/qubes/iso/Qubes-R3.1-x86_64.iso.asc
 
+[Whonix](https://www.whonix.org)
+
+- https://www.whonix.org/download/12.0.0.3.2/Whonix-Gateway-12.0.0.3.2.libvirt.xz
+- https://www.whonix.org/download/12.0.0.3.2/Whonix-Gateway-12.0.0.3.2.libvirt.xz.asc
+- https://www.whonix.org/download/12.0.0.3.2/Whonix-Gateway-12.0.0.3.2.sha512sums
+- https://www.whonix.org/download/12.0.0.3.2/Whonix-Gateway-12.0.0.3.2.sha512sums.asc
+- https://www.whonix.org/download/12.0.0.3.2/Whonix-Workstation-12.0.0.3.2.libvirt.xz
+- https://www.whonix.org/download/12.0.0.3.2/Whonix-Workstation-12.0.0.3.2.libvirt.xz.asc
+- https://www.whonix.org/download/12.0.0.3.2/Whonix-Workstation-12.0.0.3.2.sha512sums
+- https://www.whonix.org/download/12.0.0.3.2/Whonix-Workstation-12.0.0.3.2.sha512sums.asc
+- https://www.whonix.org/patrick.asc
+
 [Tails](https://tails.boum.org)
 
 - http://dl.amnesia.boum.org/tails/stable/tails-i386-2.3/tails-i386-2.3.iso
