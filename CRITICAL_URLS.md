@@ -144,6 +144,7 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 
 - http://download.redis.io/releases/redis-3.2.0.tar.gz
 - http://download.redis.io/releases/redis-2.8.23.tar.gz
+- https://raw.githubusercontent.com/antirez/redis-hashes/master/README
 
 ## Other Software
 
