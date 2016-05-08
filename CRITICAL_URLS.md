@@ -140,6 +140,11 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 - http://mirrors-usa.go-parts.com/gcc/snapshots/6-20160410/gcc-6-20160410.tar.bz2
 - http://mirrors-usa.go-parts.com/gcc/snapshots/6-20160410/sha512.sum
 
+[Redis](http://redis.io)
+
+- http://download.redis.io/releases/redis-3.2.0.tar.gz
+- http://download.redis.io/releases/redis-2.8.23.tar.gz
+
 ## Other Software
 
 JavaScript on CDNs
