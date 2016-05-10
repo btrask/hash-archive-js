@@ -155,6 +155,11 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 - http://mirrors-usa.go-parts.com/gcc/snapshots/6-20160410/gcc-6-20160410.tar.bz2
 - http://mirrors-usa.go-parts.com/gcc/snapshots/6-20160410/sha512.sum
 
+[CompCert](http://compcert.inria.fr)
+
+- http://compcert.inria.fr/release/compcert-2.6.tgz
+- http://compcert.inria.fr/release/SHA1SUMS
+
 [Redis](http://redis.io)
 
 - http://download.redis.io/releases/redis-3.2.0.tar.gz
