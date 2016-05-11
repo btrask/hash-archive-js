@@ -37,6 +37,7 @@ function response_store_hashes(db, response_id, hashes, cb) {
 		if(i >= algos.length) return cb(null);
 		var algo = algos[i];
 		var data = hashes[algo];
+		if(!data) return next(i++);
 		db.run(
 			"INSERT OR IGNORE INTO hashes (algo, data)\n"+
 			"VALUES (?, ?)", algo, data,
@@ -48,13 +49,13 @@ function response_store_hashes(db, response_id, hashes, cb) {
 				algo, data,
 			function(err, insertion) {
 				if(err) return cb(err);
+				if(!insertion) return cb(new Error("Couldn't find hash"));
 				db.run(
 					"INSERT INTO response_hashes (response_id, hash_id)\n"+
 					"VALUES (?, ?)", response_id, insertion.hash_id,
 				function(err) {
 					if(err) return cb(err);
-					i++;
-					next();
+					next(i++);
 				});
 			});
 		});

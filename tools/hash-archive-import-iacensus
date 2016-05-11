@@ -53,6 +53,7 @@ db_pool.open(function(db) {
 				content_type: type,
 				hashes: {
 					"md5": row[2],
+					"sha1": row[3] || null,
 				},
 			};
 			schema.insert_response(db, req, res,
