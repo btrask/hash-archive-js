@@ -107,7 +107,6 @@ hashm.hash_buf = function(algo, buf, enc) {
 	return hasher.read();
 };
 
-// TODO: Move from index.js. Note the cb args are slightly different.
 hashm.hashStream = function(stream, cb) { // cb(err, hashes, length)
 	var length = 0;
 	var hashers = {
