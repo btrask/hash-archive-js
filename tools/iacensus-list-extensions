@@ -1,0 +1,38 @@
+#!/usr/bin/env node
+// Copyright 2016 Ben Trask
+// MIT licensed (see LICENSE for details)
+
+var fs = require("fs");
+var pathm = require("path");
+var zlib = require("zlib");
+
+var csv = require("csv");
+
+var has = require("../has");
+var mime = require("../mime");
+
+if(process.argv.length <= 2) {
+	console.log("Usage: iacensus-list-extensions path");
+	console.log("Warning: file's modification date is used for timestamp");
+	process.exit(1);
+}
+
+var path = pathm.resolve(process.argv[2]);
+var file = fs.createReadStream(path);
+var gunzip = new zlib.Gunzip();
+var parser = csv.parse({ delimiter: "\t" });
+
+file.pipe(gunzip).pipe(parser);
+
+var unknown = {};
+
+parser.on("data", function(row) {
+	var ext = pathm.extname(row[1]);
+	if("" === ext) return;
+	if(has(mime, ext)) return;
+	unknown[ext] = "";
+});
+parser.on("end", function() {
+	console.log(JSON.stringify(unknown, null, "\t"));
+});
+

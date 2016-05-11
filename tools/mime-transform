@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+// Copyright 2016 Ben Trask
+// MIT licensed (see LICENSE for details)
+
+var fs = require("fs");
+var pathm = require("path");
+
+var has = require("../has");
+
+if(process.argv.length <= 2) {
+	console.log("Usage: mime-transform db.json [mime.json]");
+	console.log("If provided, mime.json will be updated in-place.");
+	process.exit(1);
+}
+
+var input = JSON.parse(fs.readFileSync(pathm.resolve(process.argv[2]), "utf8"));
+var output = process.argv[3] ?
+	JSON.parse(fs.readFileSync(pathm.resolve(process.argv[3]), "utf8")) :
+	{};
+
+for(var type in input) if(has(input, type)) {
+	var exts = input[type].extensions;
+	if(exts) for(var i = 0; i < exts.length; i++) {
+		output["."+exts[i]] = type;
+	}
+}
+
+if(process.argv[3]) {
+	fs.writeFileSync(process.argv[3], JSON.stringify(output, null, "\t"), "utf8");
+} else {
+	console.log(JSON.stringify(output, null, "\t"));
+}
+
