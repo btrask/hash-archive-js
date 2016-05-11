@@ -104,7 +104,7 @@ function worker() {
 		if(err) throw err;
 		if(!req) {
 			workers--;
-			console.log("Worker stopping (remaining: "+workers+")");
+//			console.log("Worker stopping (remaining: "+workers+")");
 			return;
 		}
 
@@ -582,10 +582,15 @@ function server_create(listener) {
 		});
 		tls.listen(config["port_tls"]);
 		raw.listen(config["port_raw"]);
+		log("Listening on https://localhost:"+config["port_tls"]+"/");
 	} else {
 		var raw = http.createServer(listener);
 		raw.listen(config["port_raw"]);
+		log("Listening on http://localhost:"+config["port_raw"]+"/");
 	}
+}
+function log(str) {
+	console.log((new Date).toISOString()+": "+str);
 }
 
 
