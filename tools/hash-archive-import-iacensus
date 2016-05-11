@@ -24,12 +24,12 @@ var path = pathm.resolve(process.argv[2]);
 var file = fs.createReadStream(path);
 var gunzip = new zlib.Gunzip();
 var parser = csv.parse({ delimiter: "\t" });
-var date = null;
+var time = null;
 
 file.pipe(gunzip).pipe(parser);
 file.on("open", function(fd) {
 	var stats = fs.fstatSync(fd);
-	date = stats.mtime;
+	time = +stats.mtime;
 });
 
 db_pool.setup(1, config["db_path"], db_pool.OPEN_READWRITE);
@@ -40,20 +40,16 @@ db_pool.open(function(db) {
 		parser.pause();
 		var url = "https://archive.org/download/"+row[0]+"/"+row[1];
 		db.run("BEGIN TRANSACTION");
-		schema.insert_request(db, url, function(err, request_id) {
+		schema.insert_request(db, url, time, function(err, req) {
 			if(err) throw err;
 			var ext = pathm.extname(row[1]);
 			var type = has(mime, ext) ? mime[ext] : null;
 			var md5 = new Buffer(row[2], "hex");
 			var sha1 = row[3] ? new Buffer(row[3], "hex") : null;
 //			console.log(type, md5, sha1);
-			var req = {
-				request_id: request_id,
-				url: url,
-			};
 			var res = {
 				status: 200,
-				response_time: +date,
+				response_time: time,
 				content_type: type,
 				hashes: {
 					"md5": md5,

@@ -8,7 +8,8 @@ CREATE TABLE IF NOT EXISTS requests (
 	url TEXT NOT NULL,
 	request_time INTEGER NOT NULL
 );
-CREATE INDEX request_urls ON requests (url);
+-- Use a unique index to prevent importing the same data multiple times.
+CREATE UNIQUE INDEX request_urls ON requests (url, request_time);
 
 CREATE TABLE IF NOT EXISTS responses (
 	response_id INTEGER PRIMARY KEY,

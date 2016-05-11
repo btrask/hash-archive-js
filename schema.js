@@ -3,14 +3,18 @@
 
 var schema = exports;
 
-schema.insert_request = function(db, url, cb) {
+schema.insert_request = function(db, url, request_time, cb) {
 	db.run(
 		"INSERT INTO requests (url, request_time)\n"+
 		"VALUES (?, ?)",
-		url, +new Date,
+		url, request_time,
 	function(err) {
 		if(err) return cb(err, null);
-		return cb(null, this.lastID);
+		return cb(null, {
+			request_id: this.lastID,
+			url: url,
+			request_time: request_time,
+		});
 	});
 };
 schema.insert_response = function(db, req, res, cb) {

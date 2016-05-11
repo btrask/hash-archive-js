@@ -269,6 +269,7 @@ function request_bump(db, url, cb) {
 				db.run("ROLLBACK");
 				return cb(err, null);
 			}
+			var request_time = +new Date;
 			var pending, outdated;
 			if(!row) {
 				pending = false;
@@ -276,7 +277,7 @@ function request_bump(db, url, cb) {
 			} else if(!row.response_time) {
 				pending = true;
 				outdated = true;
-			} else if(row.response_time < +new Date - (1000*60*60*24)) {
+			} else if(row.response_time < request_time - (1000*60*60*24)) {
 				pending = false;
 				outdated = true;
 			} else {
@@ -284,8 +285,8 @@ function request_bump(db, url, cb) {
 				outdated = false;
 			}
 			if(outdated && !pending) {
-				schema.insert_request(db, url,
-				function(err, request_id) {
+				schema.insert_request(db, url, request_time,
+				function(err, req) {
 					if(err) {
 						db.run("ROLLBACK");
 						return cb(err, null);
