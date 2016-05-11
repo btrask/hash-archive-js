@@ -38,6 +38,7 @@ function response_store_hashes(db, response_id, hashes, cb) {
 		var algo = algos[i];
 		var data = hashes[algo];
 		if(!data) return next(i++);
+		if(!Buffer.isBuffer(data)) throw new Error("Invalid hash type "+typeof data);
 		db.run(
 			"INSERT OR IGNORE INTO hashes (algo, data)\n"+
 			"VALUES (?, ?)", algo, data,

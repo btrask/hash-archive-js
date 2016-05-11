@@ -42,7 +42,11 @@ db_pool.open(function(db) {
 		db.run("BEGIN TRANSACTION");
 		schema.insert_request(db, url, function(err, request_id) {
 			if(err) throw err;
-			var type = mime[pathm.extname(row[1])] || "application/octet-stream";
+			var ext = pathm.extname(row[1]);
+			var type = has(mime, ext) ? mime[ext] : null;
+			var md5 = new Buffer(row[2], "hex");
+			var sha1 = row[3] ? new Buffer(row[3], "hex") : null;
+//			console.log(type, md5, sha1);
 			var req = {
 				request_id: request_id,
 				url: url,
@@ -52,8 +56,8 @@ db_pool.open(function(db) {
 				response_time: +date,
 				content_type: type,
 				hashes: {
-					"md5": row[2],
-					"sha1": row[3] || null,
+					"md5": md5,
+					"sha1": sha1,
 				},
 			};
 			schema.insert_response(db, req, res,
