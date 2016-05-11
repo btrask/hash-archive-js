@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS requests (
 	url TEXT NOT NULL,
 	request_time INTEGER NOT NULL
 );
+CREATE INDEX request_urls ON requests (url);
 
 CREATE TABLE IF NOT EXISTS responses (
 	response_id INTEGER PRIMARY KEY,
@@ -19,6 +20,7 @@ CREATE TABLE IF NOT EXISTS responses (
 	last_modified TEXT,
 	date TEXT
 );
+CREATE INDEX response_requests ON responses (request_id);
 
 CREATE TABLE IF NOT EXISTS hashes (
 	hash_id INTEGER PRIMARY KEY,
