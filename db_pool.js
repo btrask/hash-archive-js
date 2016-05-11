@@ -3,6 +3,7 @@
 
 var db_pool = exports;
 
+var fs = require("fs");
 var sqlite = require("sqlite3");
 
 var db_waiting = [];
@@ -11,6 +12,8 @@ var db_available = [];
 db_pool.OPEN_READWRITE = sqlite.OPEN_READWRITE;
 
 db_pool.setup = function(num, path, mode) {
+	fs.statSync(path); // Error if path doesn't exist.
+
 	// Be careful when using closures in arrays...
 	// We were adding the last db created num times,
 	// instead of adding each one once.

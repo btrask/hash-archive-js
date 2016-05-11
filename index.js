@@ -21,6 +21,7 @@ var hashm = require("./hash");
 var templates = require("./templates");
 var errno = require("./errno");
 var db_pool = require("./db_pool");
+var schema = require("./schema");
 var work_queue = require("./work_queue");
 
 var config = require("./config_obj");
@@ -68,6 +69,7 @@ function stream_text(stream, cb) {
 		cb(err, null);
 	});
 }
+// TODO: Get rid of this version and just use the one in hash.js.
 function stream_hashes(stream, cb) { // cb(err, { length, hashes })
 	var length = 0;
 	var hashers = {
@@ -313,11 +315,8 @@ function request_bump(db, url, cb) {
 				outdated = false;
 			}
 			if(outdated && !pending) {
-				db.run(
-					"INSERT INTO requests (url, request_time)\n"+
-					"VALUES (?, ?)",
-					url, +new Date,
-				function(err) {
+				schema.insert_request(db, url,
+				function(err, request_id) {
 					if(err) {
 						db.run("ROLLBACK");
 						return cb(err, null);
@@ -344,59 +343,16 @@ function request_bump(db, url, cb) {
 function response_store(db, req, res, cb) {
 	db.run("BEGIN TRANSACTION", function(err) {
 		if(err) return cb(err);
-		db.run(
-			"INSERT INTO responses (request_id, status, response_time,\n"+
-			"\t"+"content_type, etag, last_modified, date)\n"+
-			"VALUES (?, ?, ?, ?, ?, ?, ?)",
-			req.request_id, res.status, res.response_time,
-			res.content_type, res.etag, res.last_modified, res.date,
-		function(err) {
+		schema.insert_response(db, req, res, function(err, response_id) {
 			if(err) {
 				db.run("ROLLBACK");
 				return cb(err);
 			}
-			var response_id = this.lastID;
-			response_store_hashes(db, response_id, res.hashes, function(err) {
-				if(err) {
-					db.run("ROLLBACK");
-					return cb(err);
-				}
-				db.run("COMMIT", function(err) {
-					cb(err);
-				});
+			db.run("COMMIT", function(err) {
+				cb(err);
 			});
 		});
 	});
-}
-function response_store_hashes(db, response_id, hashes, cb) {
-	var algos = Object.keys(hashes);
-	var i = 0;
-	(function next() {
-		if(i >= algos.length) return cb(null);
-		var algo = algos[i];
-		var data = hashes[algo];
-		db.run(
-			"INSERT OR IGNORE INTO hashes (algo, data)\n"+
-			"VALUES (?, ?)", algo, data,
-		function(err) {
-			if(err) return cb(err);
-			db.get(
-				"SELECT hash_id FROM hashes\n"+
-				"WHERE algo = ? AND data = ? LIMIT 1",
-				algo, data,
-			function(err, insertion) {
-				if(err) return cb(err);
-				db.run(
-					"INSERT INTO response_hashes (response_id, hash_id)\n"+
-					"VALUES (?, ?)", response_id, insertion.hash_id,
-				function(err) {
-					if(err) return cb(err);
-					i++;
-					next();
-				});
-			});
-		});
-	})();
 }
 function responses_load(db, url, cb) {
 	db.all(

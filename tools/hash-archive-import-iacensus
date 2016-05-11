@@ -1,0 +1,69 @@
+#!/usr/bin/env node
+// Copyright 2016 Ben Trask
+// MIT licensed (see LICENSE for details)
+
+var fs = require("fs");
+var pathm = require("path");
+var zlib = require("zlib");
+
+var csv = require("csv");
+
+var db_pool = require("../db_pool");
+var config = require("../config_obj");
+var has = require("../has");
+var mime = require("../mime");
+var schema = require("../schema");
+
+if(process.argv.length <= 2) {
+	console.log("Usage: hash-archive-import-iacencus path");
+	console.log("Warning: file's modification date is used for timestamp");
+	process.exit(1);
+}
+
+var path = pathm.resolve(process.argv[2]);
+var file = fs.createReadStream(path);
+var gunzip = new zlib.Gunzip();
+var parser = csv.parse({ delimiter: "\t" });
+var date = null;
+
+file.pipe(gunzip).pipe(parser);
+file.on("open", function(fd) {
+	var stats = fs.fstatSync(fd);
+	date = stats.mtime;
+});
+
+db_pool.setup(1, config["db_path"], db_pool.OPEN_READWRITE);
+
+db_pool.open(function(db) {
+	db.serialize();
+	parser.on("data", function(row) {
+		parser.pause();
+		var url = "https://archive.org/download/"+row[0]+"/"+row[1];
+		db.run("BEGIN TRANSACTION");
+		schema.insert_request(db, url, function(err, request_id) {
+			if(err) throw err;
+			var type = mime[pathm.extname(row[1])] || "application/octet-stream";
+			var req = {
+				request_id: request_id,
+				url: url,
+			};
+			var res = {
+				status: 200,
+				response_time: +date,
+				content_type: type,
+				hashes: {
+					"md5": row[2],
+				},
+			};
+			schema.insert_response(db, req, res,
+			function(err, respopnse_id) {
+				if(err) throw err;
+				db.run("COMMIT", function(err) {
+					if(err) throw err;
+					parser.resume();
+				});
+			});
+		});
+	});
+});
+

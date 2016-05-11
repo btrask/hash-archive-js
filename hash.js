@@ -107,3 +107,32 @@ hashm.hash_buf = function(algo, buf, enc) {
 	return hasher.read();
 };
 
+// TODO: Move from index.js. Note the cb args are slightly different.
+hashm.hashStream = function(stream, cb) { // cb(err, hashes, length)
+	var length = 0;
+	var hashers = {
+		"md5": crypto.createHash("md5"),
+		"sha1": crypto.createHash("sha1"),
+		"sha256": crypto.createHash("sha256"),
+		"sha384": crypto.createHash("sha384"),
+		"sha512": crypto.createHash("sha512"),
+	};
+	stream.on("data", function(chunk) {
+		length += chunk.length;
+		Object.keys(hashers).forEach(function(algo) {
+			hashers[algo].write(chunk);
+		});
+	});
+	stream.on("end", function() {
+		var hashes = {};
+		Object.keys(hashers).forEach(function(algo) {
+			hashers[algo].end();
+			hashes[algo] = hashers[algo].read();
+		});
+		cb(null, hashes, length);
+	});
+	stream.on("error", function(err) {
+		cb(err, null);
+	});
+};
+
