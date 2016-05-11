@@ -69,37 +69,6 @@ function stream_text(stream, cb) {
 		cb(err, null);
 	});
 }
-// TODO: Get rid of this version and just use the one in hash.js.
-function stream_hashes(stream, cb) { // cb(err, { length, hashes })
-	var length = 0;
-	var hashers = {
-		"md5": crypto.createHash("md5"),
-		"sha1": crypto.createHash("sha1"),
-		"sha256": crypto.createHash("sha256"),
-		"sha384": crypto.createHash("sha384"),
-		"sha512": crypto.createHash("sha512"),
-	};
-	stream.on("data", function(chunk) {
-		length += chunk.length;
-		Object.keys(hashers).forEach(function(algo) {
-			hashers[algo].write(chunk);
-		});
-	});
-	stream.on("end", function() {
-		var hashes = {};
-		Object.keys(hashers).forEach(function(algo) {
-			hashers[algo].end();
-			hashes[algo] = hashers[algo].read();
-		});
-		cb(null, {
-			length: length,
-			hashes: hashes,
-		});
-	});
-	stream.on("error", function(err) {
-		cb(err, null);
-	});
-}
 
 var WORKERS_MAX = 10;
 var workers = 0;
@@ -216,11 +185,11 @@ function url_stat(obj, redirect_count, cb) {
 			return url_check_and_stat(res.headers["location"], redirect_count+1, cb);
 		}
 
-		stream_hashes(res, function(err, obj) {
+		hashm.hashStream(res, function(err, hashes, length) {
 			if(err) return cb(err, null);
 			if(
 				has(res.headers, "content-length") &&
-				obj.length !== parseInt(res.headers["content-length"]))
+				length !== parseInt(res.headers["content-length"]))
 			{
 				return cb(errno.createError(errno.ERR_TRUNCATED), null);
 			}
@@ -231,7 +200,7 @@ function url_stat(obj, redirect_count, cb) {
 				etag: res.headers["etag"],
 				last_modified: res.headers["last-modified"],
 				date: res.headers["date"],
-				hashes: obj.hashes,
+				hashes: hashes,
 			});
 		});
 	});
