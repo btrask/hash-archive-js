@@ -22,6 +22,9 @@ CREATE TABLE IF NOT EXISTS responses (
 	date TEXT
 );
 CREATE INDEX response_requests ON responses (request_id);
+-- It may seem tempting to create an index on response status,
+-- but don't bother because it has extremely low selectivity.
+-- If you run ANALYZE, SQLite won't even use it.
 
 CREATE TABLE IF NOT EXISTS hashes (
 	hash_id INTEGER PRIMARY KEY,
