@@ -20,7 +20,7 @@ db_pool.setup = function(num, path, mode) {
 	for(var i = 0; i < num; i++) (function () {
 		var db = new sqlite.Database(path, mode,
 		function() {
-			db.run("PRAGMA busy_timeout = 5000", function(err) {
+			db.run("PRAGMA busy_timeout = 30000", function(err) {
 				if(err) throw err;
 				db_pool.close(db);
 			});
