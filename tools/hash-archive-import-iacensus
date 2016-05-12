@@ -36,36 +36,51 @@ db_pool.setup(1, config["db_path"], db_pool.OPEN_READWRITE);
 
 db_pool.open(function(db) {
 	db.serialize();
-	parser.on("data", function(row) {
-		parser.pause();
-		var url = "https://archive.org/download/"+row[0]+"/"+row[1];
-		db.run("BEGIN TRANSACTION");
-		schema.insert_request(db, url, time, function(err, req) {
+
+	// Fuck node-csv forever.
+	// parser.pause() is completely broken.
+	var wait = false;
+	parser.on("readable", function next() {
+		if(wait) return;
+		var row = parser.read();
+		if(!row) return;
+		wait = true;
+		add(db, row, function(err) {
 			if(err) throw err;
-			var ext = pathm.extname(row[1]) || null;
-			if(ext && !has(mime, ext)) throw new Error("Unknown type of "+row[0]+"/"+row[1]);
-			var type = mime[ext];
-			var md5 = new Buffer(row[2], "hex");
-			var sha1 = row[3] ? new Buffer(row[3], "hex") : null;
-//			console.log(type, md5, sha1);
-			var res = {
-				status: 200,
-				response_time: time,
-				content_type: type,
-				hashes: {
-					"md5": md5,
-					"sha1": sha1,
-				},
-			};
-			schema.insert_response(db, req, res,
-			function(err, respopnse_id) {
-				if(err) throw err;
-				db.run("COMMIT", function(err) {
-					if(err) throw err;
-					parser.resume();
-				});
-			});
+			wait = false;
+			next();
 		});
 	});
 });
+
+function add(db, row, cb) {
+	var url = "https://archive.org/download/"+row[0]+"/"+row[1];
+	db.run("BEGIN TRANSACTION");
+	schema.insert_request(db, url, time, function(err, req) {
+		if(err) throw err;
+		var ext = pathm.extname(row[1]) || null;
+//		if(ext && !has(mime, ext)) throw new Error("Unknown type of "+row[0]+"/"+row[1]);
+		var type = mime[ext];
+		var md5 = new Buffer(row[2], "hex");
+		var sha1 = row[3] ? new Buffer(row[3], "hex") : null;
+//		console.log(type, md5, sha1);
+		var res = {
+			status: 200,
+			response_time: time,
+			content_type: type,
+			hashes: {
+				"md5": md5,
+				"sha1": sha1,
+			},
+		};
+		schema.insert_response(db, req, res,
+		function(err, respopnse_id) {
+			if(err) throw err;
+			db.run("COMMIT", function(err) {
+				if(err) throw err;
+				cb();
+			});
+		});
+	});
+}
 
