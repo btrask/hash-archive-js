@@ -42,7 +42,7 @@ function recent_urls_update() {
 			"FROM responses AS res\n"+
 			"INNER JOIN requests AS req ON (res.request_id = req.request_id)\n"+
 			"WHERE res.status = 200\n"+
-			"ORDER BY res.response_time, res.response_id DESC\n"+
+			"ORDER BY res.response_time DESC, res.response_id DESC\n"+
 			"LIMIT 10",
 		function(err, rows) {
 			db_close(db);
