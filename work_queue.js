@@ -13,7 +13,7 @@ work_queue.get = function(cb) {
 			"FROM requests AS req\n"+
 			"LEFT JOIN responses AS res ON (req.request_id = res.request_id)\n"+
 			"WHERE res.response_id IS NULL AND req.request_id > ?\n"+
-			"ORDER BY req.request_time ASC LIMIT 1", latest_request_id,
+			"ORDER BY req.request_id ASC LIMIT 1", latest_request_id,
 		function(err, req) {
 			db_pool.close(db);
 			if(err) return cb(err, null);
