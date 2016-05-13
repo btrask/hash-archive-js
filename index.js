@@ -35,15 +35,14 @@ var db_close = db_pool.close;
 var recent_urls = [];
 function recent_urls_update() {
 	db_open(function(db) {
-		// Use GROUP BY instead of SELECT DISTINCT.
-		// We want re-fetches, we just don't want them twice.
+		// GROUP BY is too slow!
+		// Hopefully SELECT DISTINCT does what we want...
 		db.all(
-			"SELECT req.url\n"+
+			"SELECT DISTINCT req.url\n"+
 			"FROM responses AS res\n"+
 			"INNER JOIN requests AS req ON (res.request_id = req.request_id)\n"+
 			"WHERE res.status = 200\n"+
-			"GROUP BY req.url\n"+
-			"ORDER BY MAX(res.response_time) DESC LIMIT 10",
+			"ORDER BY res.response_time DESC LIMIT 10",
 		function(err, rows) {
 			db_close(db);
 			if(err) throw err;
