@@ -166,6 +166,11 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 - http://download.redis.io/releases/redis-2.8.23.tar.gz
 - https://raw.githubusercontent.com/antirez/redis-hashes/master/README
 
+[CertBot](https://certbot.eff.org)
+
+- https://dl.eff.org/certbot-auto
+- https://dl.eff.org/certbot-auto.asc
+
 ## Other Software
 
 JavaScript on CDNs
