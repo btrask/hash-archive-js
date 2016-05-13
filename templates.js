@@ -17,7 +17,7 @@ var types = [
 	"multihash",
 	"prefix",
 ];
-var algos = [
+var algos = [ // In order of "most prefered."
 	"sha256",
 	"sha384",
 	"sha512",
@@ -34,6 +34,18 @@ function buf_eq(a, b) {
 	if(a === b) return true;
 	if(!a || !b) return false;
 	return a.equals(b);
+}
+function hashes_eq(a, b) {
+	// I personally think checking every algorithm is overkill.
+	// It would be perfectly secure to stop on the first success or failure.
+	// However, checking everything is likely to put some people more at ease.
+	var match = false;
+	for(var i = 0; i < algos.length; i++) {
+		if(!has(a, algos[i]) || !has(b, algos[i])) continue;
+		if(!buf_eq(a[algos[i]], b[algos[i]])) return false;
+		match = true;
+	}
+	return match;
 }
 
 function html_escape(str) { // Security critical
@@ -218,7 +230,7 @@ templates.history = function(stream, url, outdated, responses) {
 		var dups = [];
 		for(j = i+1; j < responses.length; j++) {
 			var r2 = responses[j];
-			if(!buf_eq(res.hashes["sha256"], r2.hashes["sha256"])) break;
+			if(!hashes_eq(res.hashes, r2.hashes)) break;
 			dups.push(date_html("Also seen", r2.response_time));
 		}
 		var lists = {};
