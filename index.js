@@ -254,8 +254,8 @@ function dict_2d_rotate(obj) {
 
 
 function request_bump(db, url, cb) {
-	// TODO: BEGIN FOR UPDATE or something like that?
-	db.run("BEGIN TRANSACTION", function(err) {
+	// NOTE: Use BEGIN IMMEDIATE to prevent SQLITE_BUSY!
+	db.run("BEGIN IMMEDIATE TRANSACTION", function(err) {
 		db.get(
 			"SELECT req.request_id, res.response_time\n"+
 			"FROM requests AS req\n"+
@@ -311,7 +311,7 @@ function request_bump(db, url, cb) {
 	});
 }
 function response_store(db, req, res, cb) {
-	db.run("BEGIN TRANSACTION", function(err) {
+	db.run("BEGIN IMMEDIATE TRANSACTION", function(err) {
 		if(err) return cb(err);
 		schema.insert_response(db, req, res, function(err, response_id) {
 			if(err) {
