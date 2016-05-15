@@ -171,6 +171,18 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 - https://dl.eff.org/certbot-auto
 - https://dl.eff.org/certbot-auto.asc
 
+[Rust](https://www.rust-lang.org)
+
+- https://static.rust-lang.org/rustup.sh
+- https://static.rust-lang.org/dist/rust-1.8.0-x86_64-unknown-linux-gnu.tar.gz
+- https://static.rust-lang.org/dist/rust-1.8.0-x86_64-apple-darwin.pkg
+- https://static.rust-lang.org/dist/rust-1.8.0-x86_64-pc-windows-gnu.msi
+- https://static.rust-lang.org/dist/rust-1.8.0-x86_64-pc-windows-msvc.msi
+
+[Homebrew](http://brew.sh)
+
+- https://raw.githubusercontent.com/Homebrew/install/master/install
+
 ## Other Software
 
 JavaScript on CDNs
@@ -232,6 +244,10 @@ JavaScript on CDNs
 - https://download.transmissionbt.com/files/Transmission-2.92.dmg
 - https://download.transmissionbt.com/files/transmission-2.92.tar.xz
 
+[7-zip](http://www.7-zip.org/)
+
+- http://www.7-zip.org/a/7z1600.exe
+- http://www.7-zip.org/a/7z1600-x64.exe
 
 ## Pinned hashes
 
