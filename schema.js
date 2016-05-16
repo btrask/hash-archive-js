@@ -27,6 +27,15 @@ schema.insert_response = function(db, req, res, cb) {
 	function(err) {
 		if(err) return cb(err, null);
 		var response_id = this.lastID;
+		response_store_hashes(db, response_id, res.hashes, function(err) {
+			if(err) return cb(err, null);
+			cb(null, response_id);
+		});
+	});
+};
+schema.insert_response_http = function(db, req, res, cb) {
+	schema.insert_response(db, req, res, function(err, response_id) {
+		if(err) return cb(err, null);
 		db.run(
 			"INSERT INTO http_responses\n"+
 			"\t"+"(response_id, etag, last_modified, date)\n"+
@@ -34,10 +43,7 @@ schema.insert_response = function(db, req, res, cb) {
 			response_id, res.etag, res.last_modified, res.date,
 		function(err) {
 			if(err) return cb(err, null);
-			response_store_hashes(db, response_id, res.hashes, function(err) {
-				if(err) return cb(err, null);
-				cb(null, response_id);
-			});
+			cb(null, response_id);
 		});
 	});
 };

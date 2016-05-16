@@ -313,7 +313,7 @@ function request_bump(db, url, cb) {
 function response_store(db, req, res, cb) {
 	db.run("BEGIN IMMEDIATE TRANSACTION", function(err) {
 		if(err) return cb(err);
-		schema.insert_response(db, req, res, function(err, response_id) {
+		schema.insert_response_http(db, req, res, function(err, response_id) {
 			if(err) {
 				db.run("ROLLBACK");
 				return cb(err);
