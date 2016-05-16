@@ -57,7 +57,11 @@ function add(db, row, cb) {
 	var url = "https://archive.org/download/"+row[0]+"/"+row[1];
 	db.run("BEGIN TRANSACTION");
 	schema.insert_request(db, url, time, function(err, req) {
-		if(err) throw err;
+		if(err) {
+			// Ignore duplicate rows.
+			if("SQLITE_CONSTRAINT" === err.code) return cb();
+			throw err;
+		}
 		var ext = pathm.extname(row[1]) || null;
 //		if(ext && !has(mime, ext)) throw new Error("Unknown type of "+row[0]+"/"+row[1]);
 		var type = mime[ext];
