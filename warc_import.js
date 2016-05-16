@@ -42,6 +42,9 @@ warc_import.doit = function(res) {
 	parser.onMessageComplete = function() {
 	    //console.log('complete');
 	    data_stream.end();
+            if (/\.warc$/.test(data.headers['WARC-Target-URI'].toLowerCase())) {
+                warc_import.doit(data_stream);
+            }
             hashm.hashStream(data_stream, function(err, hashes, length) {
                 if (err) throw err;
                 answer[data.headers['WARC-Target-URI']] = {
