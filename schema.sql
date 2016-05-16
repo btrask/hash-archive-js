@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS responses (
 	last_modified TEXT,
 	date TEXT
 );
-CREATE INDEX response_requests ON responses (request_id);
+CREATE UNIQUE INDEX response_requests ON responses (request_id);
 CREATE INDEX response_times ON responses (response_time, response_id);
 -- It may seem tempting to create an index on response status,
 -- but don't bother because it has extremely low selectivity.
