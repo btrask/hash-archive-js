@@ -19,17 +19,25 @@ schema.insert_request = function(db, url, request_time, cb) {
 };
 schema.insert_response = function(db, req, res, cb) {
 	db.run(
-		"INSERT INTO responses (request_id, status, response_time,\n"+
-		"\t"+"content_type, etag, last_modified, date)\n"+
-		"VALUES (?, ?, ?, ?, ?, ?, ?)",
-		req.request_id, res.status, res.response_time,
-		res.content_type, res.etag, res.last_modified, res.date,
+		"INSERT INTO responses\n"+
+		"\t"+"(request_id, status, response_time, content_type)\n"+
+		"VALUES (?, ?, ?, ?)",
+		req.request_id, res.status,
+		res.response_time, res.content_type,
 	function(err) {
 		if(err) return cb(err, null);
 		var response_id = this.lastID;
-		response_store_hashes(db, response_id, res.hashes, function(err) {
+		db.run(
+			"INSERT INTO http_responses\n"+
+			"\t"+"(response_id, etag, last_modified, date)\n"+
+			"VALUES (?, ?, ?, ?)",
+			response_id, res.etag, res.last_modified, res.date,
+		function(err) {
 			if(err) return cb(err, null);
-			cb(null, response_id);
+			response_store_hashes(db, response_id, res.hashes, function(err) {
+				if(err) return cb(err, null);
+				cb(null, response_id);
+			});
 		});
 	});
 };

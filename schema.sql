@@ -16,16 +16,22 @@ CREATE TABLE IF NOT EXISTS responses (
 	request_id INTEGER NOT NULL,
 	status INTEGER NOT NULL,
 	response_time INTEGER NOT NULL,
-	content_type TEXT,
-	etag TEXT,
-	last_modified TEXT,
-	date TEXT
+	content_type TEXT
 );
 CREATE UNIQUE INDEX response_requests ON responses (request_id);
 CREATE INDEX response_times ON responses (response_time, response_id);
 -- It may seem tempting to create an index on response status,
 -- but don't bother because it has extremely low selectivity.
 -- If you run ANALYZE, SQLite won't even use it.
+
+CREATE TABLE IF NOT EXISTS http_responses (
+	http_response_id INTEGER PRIMARY KEY,
+	response_id INTEGER NOT NULL,
+	etag TEXT,
+	last_modified TEXT,
+	date TEXT
+);
+CREATE UNIQUE INDEX http_response_ids ON http_responses (response_id);
 
 CREATE TABLE IF NOT EXISTS hashes (
 	hash_id INTEGER PRIMARY KEY,

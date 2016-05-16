@@ -327,9 +327,10 @@ function response_store(db, req, res, cb) {
 function responses_load(db, url, cb) {
 	db.all(
 		"SELECT res.response_id, res.status, res.response_time,\n"+
-		"\t"+"res.content_type, res.etag, res.last_modified, res.date\n"+
+		"\t"+"res.content_type, http.etag, http.last_modified, http.date\n"+
 		"FROM requests AS req\n"+
 		"INNER JOIN responses AS res ON (req.request_id = res.request_id)\n"+
+		"LEFT JOIN http_responses AS http ON (res.response_id = http.response_id)\n"+
 		"WHERE req.url = ?\n"+
 		"ORDER BY res.response_id DESC LIMIT 30",
 		url,
