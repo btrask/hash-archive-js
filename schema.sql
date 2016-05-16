@@ -3,9 +3,17 @@ PRAGMA application_id = 404;
 PRAGMA journal_mode = WAL;
 PRAGMA synchronous = NORMAL;
 
+
+-- requests.url is nullable to support nested requests that don't have global
+-- identifiers. For example files inside of compressed archives.
+-- The alternative was to invent global identifiers for nested content:
+-- such as http://example.com/archive.zip#path/to/file.rar#file.txt
+-- However, that idea was determined to be non-standard and to have too many
+-- problems (such as with the way Hash Archive history URLs are constructed).
+-- TODO: Rename to requests.uri as we support BitTorrent and IPFS?
 CREATE TABLE IF NOT EXISTS requests (
 	request_id INTEGER PRIMARY KEY,
-	url TEXT NOT NULL,
+	url TEXT,
 	request_time INTEGER NOT NULL
 );
 -- Use a unique index to prevent importing the same data multiple times.
@@ -47,4 +55,12 @@ CREATE TABLE IF NOT EXISTS response_hashes (
 );
 CREATE UNIQUE INDEX response_to_hash ON response_hashes (response_id, hash_id);
 CREATE UNIQUE INDEX hash_to_response ON response_hashes (hash_id, response_id);
+
+CREATE TABLE IF NOT EXISTS nested_requests (
+	nested_request_id INTEGER PRIMARY KEY,
+	parent_response_id INTEGER NOT NULL,
+	child_request_id INTEGER NOT NULL
+);
+CREATE UNIQUE INDEX nested_parents ON nested_requests (parent_response_id, child_request_id);
+CREATE UNIQUE INDEX nested_children ON nested_requests (child_request_id, parent_response_id);
 
