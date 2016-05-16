@@ -257,6 +257,11 @@ JavaScript on CDNs
 - http://dist.ipfs.io/go-ipfs/v0.4.0/go-ipfs_v0.4.0_windows-386.zip
 - http://dist.ipfs.io/go-ipfs/v0.4.0/go-ipfs_v0.4.0_windows-amd64.zip
 
+[Bitmessage](https://bitmessage.org/)
+
+- https://bitmessage.org/download/windows/Bitmessage.exe
+- https://bitmessage.org/download/osx/Bitmessage.dmg
+
 ## Pinned hashes
 
 - [Skype 3.8.0.118 (Windows)](hash://sha256/bf94e0c33a99811bf89f6761caea891ab2fd331ac831f2f48c440b238db93f24)
