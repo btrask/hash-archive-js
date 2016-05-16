@@ -59,7 +59,12 @@ function add(db, row, cb) {
 	schema.insert_request(db, url, time, function(err, req) {
 		if(err) {
 			// Ignore duplicate rows.
-			if("SQLITE_CONSTRAINT" === err.code) return cb();
+			if("SQLITE_CONSTRAINT" === err.code) {
+				db.run("ROLLBACK", function(err) {
+					cb();
+				});
+				return;
+			}
 			throw err;
 		}
 		var ext = pathm.extname(row[1]) || null;
