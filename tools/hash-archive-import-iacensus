@@ -20,6 +20,18 @@ if(process.argv.length <= 2) {
 	process.exit(1);
 }
 
+log("Importer started");
+process.on("exit", function() {
+	log("Importer exiting");
+});
+process.on("uncaughtException", function(err) {
+	log("Importer error");
+	throw err;
+});
+function log(str) {
+	console.log((new Date).toISOString()+": "+str);
+}
+
 var path = pathm.resolve(process.argv[2]);
 var file = fs.createReadStream(path);
 var gunzip = new zlib.Gunzip();
