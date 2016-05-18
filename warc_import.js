@@ -6,6 +6,7 @@ var warc_import = exports;
 
 var streamm = require("stream");
 var fs = require('fs')
+const zlib = require('zlib');
 
 var warc = require('warc');
 var HTTPParser = require('http-parser-js').HTTPParser;
@@ -13,7 +14,12 @@ var HTTPParser = require('http-parser-js').HTTPParser;
 var hashm = require("./hash");
 
 warc_import.open = function(path) {
-    warc_import.doit(fs.createReadStream(path))
+    var s = fs.createReadStream(path);
+    if (/\.warc.gz$/.test(path)) {
+        var gunzip = new zlib.Gunzip();
+        s = s.pipe(gunzip);
+    }
+    warc_import.doit(s);
 }
 
 warc_import.doit = function(res) {
@@ -22,7 +28,7 @@ warc_import.doit = function(res) {
     var done = false, incompleteHashJobs = 0;
     var maybe_finish = function() {
         if (done && incompleteHashJobs == 0) {
-            console.log(answer);
+            process.stdout.write(JSON.stringify(answer));
         }
     }
 
