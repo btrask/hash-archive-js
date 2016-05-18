@@ -17,8 +17,15 @@ var schema = require("../schema");
 if(process.argv.length <= 2) {
 	console.log("Usage: hash-archive-import-iacencus path");
 	console.log("Warning: file's modification date is used for timestamp");
+	console.log("For large imports, see tuning tips in source");
 	process.exit(1);
 }
+
+// TUNING TIPS
+// DROP INDEX hash_index;
+// DO NOT drop request_urls, since its uniqueness constraint is important.
+// PRAGMA journal_mode = MEMORY;
+// PRAGMA synchronous = OFF;
 
 log("Importer started");
 process.on("exit", function() {
