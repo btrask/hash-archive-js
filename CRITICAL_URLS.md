@@ -120,6 +120,11 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 - http://support.apple.com/downloads/DL1869/en_US/osxupdcombo10.11.4.dmg
 - http://support.apple.com/downloads/DL1832/en_US/osxupdcombo10.10.5.dmg
 
+[Apple Product Security PGP Key](https://support.apple.com/en-us/HT201601)
+
+- https://www.apple.com/support/security/pgp/
+- https://www.apple.com/support/security/pgp/archive/
+
 ## Developer tools and libraries
 
 [Git](https://git-scm.com)
