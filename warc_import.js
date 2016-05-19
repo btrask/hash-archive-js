@@ -14,29 +14,46 @@ var HTTPParser = require('http-parser-js').HTTPParser;
 var hashm = require("./hash");
 
 warc_import.open = function(path) {
-    var s = fs.createReadStream(path);
-    if (/\.warc.gz$/.test(path)) {
-        var gunzip = new zlib.Gunzip();
-        s = s.pipe(gunzip);
+    if (warc_import.check(fs.createReadStream(path), path, function(answer) {
+        process.stdout.write(JSON.stringify(answer));
+    })) {
+        process.stderr.write("Starting WARC processing...\n");
+    } else {
+        process.stderr.write("Not a WARC!");
     }
-    warc_import.doit(s);
 }
 
-warc_import.doit = function(res) {
-    var answer = {};
-    var w = new warc();
-    var done = false, incompleteHashJobs = 0;
+warc_import.check = function(stream, filename, cb) {
+    var f = filename.toLowerCase();
+    if (/\.warc.gz$/.test(f)) {
+        var gunzip = new zlib.Gunzip();
+        warc_import.doit(stream.pipe(gunzip), cb);
+        return true;
+    }
+    else if (/\.warc$/.test(f)) {
+        warc_import.doit(stream, cb);
+        return true;
+    }
+    return false;
+}
+
+warc_import.doit = function(stream, cb) {
+    var full_answer = [];
+    var done = false, incompleteHashJobs = 0, incompleteNestedJobs = 0;
     var maybe_finish = function() {
-        if (done && incompleteHashJobs == 0) {
-            process.stdout.write(JSON.stringify(answer));
+        if (done && incompleteHashJobs == 0 && incompleteNestedJobs == 0) {
+            cb(full_answer);
         }
     }
+    var w = new warc();
 
-    res.pipe(w);
+    stream.pipe(w);
 
     w.on('data', function (data) {
-        console.log(data.headers['WARC-Record-ID'])
-	if (data.headers['WARC-Type'] !== 'response') return;
+        process.stderr.write(data.headers['WARC-Record-ID']+"\n")
+	if (data.headers['WARC-Type'] !== 'response') {
+            return;
+        }
 
 	//console.log(data.headers['WARC-Target-URI']);
 	var parser = new HTTPParser(HTTPParser.RESPONSE);
@@ -54,33 +71,50 @@ warc_import.doit = function(res) {
 	    data_stream.write(chunk.slice(offset, offset + len))
 	}
 	parser.onMessageComplete = function() {
+            var maybe_push = function() {
+                if (answer.hashes && nestedJobFinished) {
+                    full_answer.push(answer);
+                    maybe_finish();
+                }
+            }
+            var nested_cb = function(ans) {
+                incompleteNestedJobs += -1;
+                nestedJobFinished = true;
+                answer.children = ans;
+                maybe_push();
+            };
+            var answer = {
+                url: data.headers['WARC-Target-URI'],
+		status: statusCode,
+		content_type: headers["content-type"],
+		etag: headers["etag"],
+		last_modified: headers["last-modified"],
+		date: headers["date"],
+		response_time: +new Date,
+	    }
+            var nestedJobFinished = true;
 	    //console.log('complete');
+
 	    data_stream.end();
-            if (/\.warc$/.test(data.headers['WARC-Target-URI'].toLowerCase())) {
-                warc_import.doit(data_stream);
+            if (warc_import.check(data_stream, data.headers['WARC-Target-URI'], nested_cb)) {
+                incompleteNestedJobs += 1;
+                nestedJobFinished = false;
             }
             incompleteHashJobs += 1;
+
             hashm.hashStream(data_stream, function(err, hashes, length) {
                 if (err) throw err;
-                console.log('hashed ' + data.headers['WARC-Target-URI']);
-                answer[data.headers['WARC-Target-URI']] = {
-		    status: statusCode,
-		    content_type: headers["content-type"],
-		    etag: headers["etag"],
-		    last_modified: headers["last-modified"],
-		    date: headers["date"],
-		    response_time: +new Date,
-		    content_length: length,
-		    hashes: hashes
-		}
+                process.stderr.write('hashed ' + data.headers['WARC-Target-URI'] + "\n");
                 incompleteHashJobs += -1;
-                maybe_finish();
+                answer.hashes = hashes;
+		answer.content_length = length;
+                maybe_push();
             });
 	}
 	parser.execute(data.content);
     });
     w.on('end', function() {
-	console.log('Finished WARC processing');
+	process.stderr.write('Finished WARC processing\n');
         done = true;
         maybe_finish();
     });
