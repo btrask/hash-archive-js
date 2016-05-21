@@ -125,6 +125,21 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 - https://www.apple.com/support/security/pgp/
 - https://www.apple.com/support/security/pgp/archive/
 
+## Firmware and drivers
+
+[Samsung SSD firmware updates](http://www.samsung.com/semiconductor/minisite/ssd/download/tools.html)
+
+- http://www.samsung.com/semiconductor/minisite/ssd/downloads/software/Samsung_SSD_840_EVO_mSATA_EXT43B6Q_Win_Mac.iso
+- http://www.samsung.com/semiconductor/minisite/ssd/downloads/software/Samsung_SSD_840_EVO_EXT0DB6Q.iso
+- http://www.samsung.com/semiconductor/minisite/ssd/downloads/software/Samsung_SSD_840_PRO_Series_DXM06B0Q_Win_Mac.iso
+- http://www.samsung.com/semiconductor/minisite/ssd/downloads/software/Samsung_SSD_840_Series_DXT09B0Q_Win_Mac.iso
+- http://www.samsung.com/semiconductor/minisite/ssd/downloads/software/Samsung_SSD_830_CXM03B1Q.iso
+- http://www.samsung.com/semiconductor/minisite/ssd/downloads/software/Samsung_SSD_470_AXM09B1Q.iso
+- http://www.samsung.com/semiconductor/minisite/ssd/downloads/software/Samsung_SSD_840_EVO_EXT0DB6Q_Mac.iso
+- http://www.samsung.com/semiconductor/minisite/ssd/downloads/software/Samsung_SSD_830_Series_CXM03B1Q_Mac.iso
+- http://www.samsung.com/semiconductor/minisite/ssd/downloads/software/Samsung_SSD_470_Series_AXM09B1Q_Mac.iso
+- http://www.samsung.com/semiconductor/minisite/ssd/downloads/software/Samsung_SSD_470_Series_AXM09B1Q_FMT_Mac.iso
+
 ## Developer tools and libraries
 
 [Git](https://git-scm.com)
