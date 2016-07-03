@@ -154,8 +154,8 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 
 [Git](https://git-scm.com)
 
-- https://www.kernel.org/pub/software/scm/git/git-2.8.1.tar.gz
-- https://www.kernel.org/pub/software/scm/git/git-2.8.1.tar.sign
+- https://www.kernel.org/pub/software/scm/git/git-2.9.0.tar.gz
+- https://www.kernel.org/pub/software/scm/git/git-2.9.0.tar.sign
 
 [bcrypt](http://openwall.com/crypt/)
 
