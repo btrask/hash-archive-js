@@ -587,8 +587,11 @@ function server_create(listener) {
 		var crt = fs.readFileSync(config["crt_path"]);
 		var tls = https.createServer({ key: key, cert: crt }, listener);
 		var raw = http.createServer(function(req, res) {
+			var host = req.headers["host"];
+			var port = 443 === config["port_tls"] ? "" : ":"+config["port_tls"];
+			var path = "/" === req.url[0] ? req.url : "/"+req.url;
 			write_head(req, res, 301, {
-				"Location": "https://"+req.headers["host"]+":"+config["port_tls"]+req.url,
+				"Location": "https://"+host+port+path,
 				"Content-Length": 0,
 			});
 			res.end();
