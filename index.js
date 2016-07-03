@@ -367,7 +367,10 @@ function responses_load(db, url, cb) {
 
 
 
-
+function write_head(req, res, status, headers) {
+	headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains; preload";
+	res.writeHead(status, headers);
+}
 
 
 
@@ -384,7 +387,7 @@ function POST_lookup(req, res) {
 		if(!has(query, "str")) return http_error(req, res, 400);
 		var str = query["str"].trim();
 		if("" === str) {
-			res.writeHead(303, {
+			write_head(req, res, 303, {
 				"Content-Type": "text/plain; charset=utf-8",
 				"Location": "/",
 			});
@@ -394,19 +397,19 @@ function POST_lookup(req, res) {
 		var url = url_normalize(str);
 		var hash = hashm.normalize(str);
 		if(url) {
-			res.writeHead(303, {
+			write_head(req, res, 303, {
 				"Content-Type": "text/plain; charset=utf-8",
 				"Location": "/history/"+url,
 			});
 			res.end("Redirecting...", "utf8");
 		} else if(hash) {
-			res.writeHead(303, {
+			write_head(req, res, 303, {
 				"Content-Type": "text/plain; charset=utf-8",
 				"Location": "/sources/"+hash,
 			});
 			res.end("Redirecting...", "utf8");
 		} else {
-			res.writeHead(303, {
+			write_head(req, res, 303, {
 				"Content-Type": "text/plain; charset=utf-8",
 				"Location": "/error.html",
 			});
@@ -437,7 +440,7 @@ function GET_history(req, res) {
 				throw err;
 			}
 
-			res.writeHead(200, {
+			write_head(req, res, 200, {
 				"Content-Type": "text/html; charset=utf-8",
 			});
 			templates.history(res, url, state.outdated, responses);
@@ -477,7 +480,9 @@ function GET_sources(req, res) {
 			return http_error(req, res, 500);
 		}
 		var status = rows.length ? 200 : 404;
-		res.writeHead(status, { "Content-Type": "text/html; charset=utf-8" });
+		write_head(req, res, status, {
+			"Content-Type": "text/html; charset=utf-8"
+		});
 		templates.sources(res, hash, rows);
 	});
 	});
@@ -511,7 +516,7 @@ function GET_database_snapshot(req, res) {
 				console.log(err);
 				return http_error(req, res, 400);
 			}
-			res.writeHead(200, {
+			write_head(req, res, 200, {
 				"Content-Type": mime_table[".gz"],
 				"Content-Length": stats.size,
 			});
@@ -533,8 +538,8 @@ function GET_critical(req, res) {
 
 
 function http_error(req, res, status, msg) {
-	res.writeHead(status, msg, { "Content-Type": "text/plain; charset=utf-8" });
-	res.end(msg || errno.http_strerror(status), "utf-8");
+	write_head(req, res, status, { "Content-Type": "text/plain; charset=utf-8" });
+	res.end(errno.http_strerror(status), "utf-8");
 	return 0;
 }
 function mime(path) {
@@ -565,7 +570,7 @@ function listener(req, res) {
 	if(/\/$/.test(url)) url += "index.html";
 	var file = fs.createReadStream("./client"+url);
 	file.on("open", function(fd) {
-		res.writeHead(200, { "Content-Type": mime(url) });
+		write_head(req, res, 200, { "Content-Type": mime(url) });
 		file.pipe(res); // TODO: Handle HEAD
 	});
 	file.on("error", function(err) {
@@ -578,7 +583,7 @@ function server_create(listener) {
 		var crt = fs.readFileSync(config["crt_path"]);
 		var tls = https.createServer({ key: key, cert: crt }, listener);
 		var raw = http.createServer(function(req, res) {
-			res.writeHead(301, {
+			write_head(req, res, 301, {
 				"Location": "https://"+req.headers["host"]+":"+config["port_tls"]+req.url,
 				"Content-Length": 0,
 			});
