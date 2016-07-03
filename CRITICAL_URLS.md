@@ -25,6 +25,11 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 - https://mirrors.kernel.org/linuxmint//stable/17.3/linuxmint-17.3-kde-64bit.iso
 - https://mirrors.kernel.org/linuxmint//stable/17.3/linuxmint-17.3-xfce-64bit.iso
 
+[Ubuntu](http://www.ubuntu.com)
+
+- http://releases.ubuntu.com/16.04/ubuntu-16.04-desktop-i386.iso
+- http://releases.ubuntu.com/16.04/ubuntu-16.04-desktop-amd64.iso
+
 [Debian](https://www.debian.org)
 
 - https://ftp-master.debian.org/keys/archive-key-8.asc
@@ -109,7 +114,11 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 - https://downloads.raspberrypi.org/NOOBS_lite_latest.torrent
 - https://downloads.raspberrypi.org/NOOBS_lite_latest
 
-## Apple
+[grsecurity](https://grsecurity.net)
+
+- https://grsecurity.net/spender-gpg-key.asc
+
+## Other operating systems
 
 [OS X](https://www.apple.com/osx/)
 
@@ -120,6 +129,13 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 
 - https://www.apple.com/support/security/pgp/
 - https://www.apple.com/support/security/pgp/archive/
+
+[OpenBSD](https://www.openbsd.org/)
+
+- http://mirrors.sonic.net/pub/OpenBSD/5.9/amd64/install59.iso
+- http://mirrors.sonic.net/pub/OpenBSD/5.9/amd64/SHA256
+- http://mirrors.sonic.net/pub/OpenBSD/5.9/amd64/SHA256.sig
+- (Looking for copies of openbsd-59-base.pub!)
 
 ## Firmware and drivers
 
@@ -182,11 +198,6 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 - http://download.redis.io/releases/redis-2.8.23.tar.gz
 - https://raw.githubusercontent.com/antirez/redis-hashes/master/README
 
-[CertBot](https://certbot.eff.org)
-
-- https://dl.eff.org/certbot-auto
-- https://dl.eff.org/certbot-auto.asc
-
 [Rust](https://www.rust-lang.org)
 
 - https://static.rust-lang.org/rustup.sh
@@ -199,18 +210,44 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 
 - https://raw.githubusercontent.com/Homebrew/install/master/install
 
+[Wireshark](https://wireshark.org/)
+
+- https://1.na.dl.wireshark.org/osx/Wireshark%202.0.4%20Intel%2064.dmg
+- https://1.na.dl.wireshark.org/win64/Wireshark-win64-2.0.4.exe
+
+[PIP](https://pip.pypa.io/en/stable/installing/)
+
+- https://bootstrap.pypa.io/get-pip.py
+
+## SSL/TLS
+
+[CertBot](https://certbot.eff.org)
+
+- https://dl.eff.org/certbot-auto
+- https://dl.eff.org/certbot-auto.asc
+
+[StartEncrypt](https://www.startssl.com/StartEncrypt)
+
+- https://download.startpki.com/startcom/linux/StartEncrypt-x64.tar.gz
+- https://download.startpki.com/startcom/linux/StartEncrypt-x86.tar.gz
+- https://download.startpki.com/startcom/windows/StartEncrypt.zip
+
 ## Other Software
 
 JavaScript on CDNs
 
 - https://code.jquery.com/jquery-2.2.3.min.js
+- https://code.jquery.com/jquery-1.12.4.min.js
 - https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js
+- https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.1/modernizr.min.js
+- https://securendn.a.ssl.fastly.net/newpanel/js/vendor/jquery-1.8.min.js
 
 [Firefox](https://getfirefox.com)
-- https://download.mozilla.org/?product=firefox-45.0.2-SSL&os=win64&lang=en-US
-- https://download.mozilla.org/?product=firefox-45.0.2-SSL&os=osx&lang=en-US
-- https://download.mozilla.org/?product=firefox-45.0.2-SSL&os=linux&lang=en-US
-- https://download.mozilla.org/?product=firefox-45.0.2-SSL&os=linux64&lang=en-US
+- https://download-installer.cdn.mozilla.net/pub/firefox/releases/47.0.1/win32/en-US/Firefox%20Setup%20Stub%2047.0.1.exe
+- https://download-installer.cdn.mozilla.net/pub/firefox/releases/47.0.1/win64/en-US/Firefox%20Setup%2047.0.1.exe
+- https://download-installer.cdn.mozilla.net/pub/firefox/releases/47.0.1/mac/en-US/Firefox%2047.0.1.dmg
+- https://download-installer.cdn.mozilla.net/pub/firefox/releases/47.0.1/linux-i686/en-US/firefox-47.0.1.tar.bz2
+- https://download-installer.cdn.mozilla.net/pub/firefox/releases/47.0.1/linux-x86_64/en-US/firefox-47.0.1.tar.bz2
 
 [KeePass](https://www.keepassx.org/)
 
@@ -244,6 +281,11 @@ JavaScript on CDNs
 - https://www.torproject.org/dist/torbrowser/5.5.4/torbrowser-install-5.5.4_en-US.exe.asc
 - https://www.torproject.org/dist/torbrowser/5.5.4/TorBrowser-5.5.4-osx64_en-US.dmg
 - https://www.torproject.org/dist/torbrowser/5.5.4/TorBrowser-5.5.4-osx64_en-US.dmg.asc
+
+[Bitcoin](https://bitcoin.org)
+
+- https://bitcoin.org/bin/bitcoin-core-0.12.1/bitcoin-0.12.1-linux64.tar.gz
+- https://bitcoin.org/bin/bitcoin-core-0.12.1/SHA256SUMS.asc
 
 [VirtualBox](https://www.virtualbox.org)
 
