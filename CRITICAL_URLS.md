@@ -96,11 +96,11 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 
 [Tails](https://tails.boum.org)
 
+- http://dl.amnesia.boum.org/tails/stable/tails-i386-2.4/tails-i386-2.4.iso
+- https://tails.boum.org/torrents/files/tails-i386-2.4.iso.sig
 - http://dl.amnesia.boum.org/tails/stable/tails-i386-2.3/tails-i386-2.3.iso
 - https://tails.boum.org/torrents/files/tails-i386-2.3.iso.sig
 - https://tails.boum.org/tails-signing.key
-- http://dl.amnesia.boum.org/tails/stable/tails-i386-2.2.1/tails-i386-2.2.1.iso
-- https://tails.boum.org/torrents/files/tails-i386-2.2.1.iso.sig
 
 [Raspbian](https://www.raspbian.org/)
 
