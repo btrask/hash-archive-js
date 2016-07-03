@@ -558,6 +558,17 @@ function listener(req, res) {
 	var url = req.url;
 //	console.log(url);
 
+	if(config["host"] && req.headers["host"] !== config["host"]) {
+		var host = config["host"];
+		// TODO: This redirect won't work without HTTPS.
+		write_head(req, res, 301, {
+			"Content-Length": 0,
+			"Location": "https://"+host,
+		});
+		res.end();
+		return;
+	}
+
 	var x = -1;
 	x = x >= 0 ? x : GET_index(req, res);
 	x = x >= 0 ? x : GET_history(req, res);

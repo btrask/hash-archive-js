@@ -17,6 +17,9 @@ var config = config = JSON.parse(json);
 if(!has(config, "key_path")) config["key_path"] = "./server.key";
 if(!has(config, "crt_path")) config["crt_path"] = "./server.crt";
 
+// Redirect to preferred host, for TLS.
+if(!has(config, "host")) config["host"] = null;
+
 if(!has(config, "port_tls")) config["port_tls"] = 443;
 if(!has(config, "port_raw")) config["port_raw"] = 80;
 
