@@ -12,18 +12,16 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 
 [Linux Mint](https://linuxmint.com)
 
-- https://torrents.linuxmint.com/torrents/linuxmint-17.3-cinnamon-64bit.iso.torrent
-- https://torrents.linuxmint.com/torrents/linuxmint-17.3-cinnamon-nocodecs-64bit.iso.torrent
-- https://torrents.linuxmint.com/torrents/linuxmint-17.3-mate-64bit.iso.torrent
-- https://torrents.linuxmint.com/torrents/linuxmint-17.3-mate-nocodecs-64bit.iso.torrent
-- https://torrents.linuxmint.com/torrents/linuxmint-17.3-kde-64bit.iso.torrent
-- https://torrents.linuxmint.com/torrents/linuxmint-17.3-xfce-64bit.iso.torrent
-- https://mirrors.kernel.org/linuxmint//stable/17.3/linuxmint-17.3-cinnamon-64bit.iso
-- https://mirrors.kernel.org/linuxmint//stable/17.3/linuxmint-17.3-cinnamon-nocodecs-64bit.iso
-- https://mirrors.kernel.org/linuxmint//stable/17.3/linuxmint-17.3-mate-64bit.iso
-- https://mirrors.kernel.org/linuxmint//stable/17.3/linuxmint-17.3-mate-nocodecs-64bit.iso
-- https://mirrors.kernel.org/linuxmint//stable/17.3/linuxmint-17.3-kde-64bit.iso
-- https://mirrors.kernel.org/linuxmint//stable/17.3/linuxmint-17.3-xfce-64bit.iso
+- https://torrents.linuxmint.com/torrents/linuxmint-18-cinnamon-64bit.iso.torrent
+- https://torrents.linuxmint.com/torrents/linuxmint-18-cinnamon-32bit.iso.torrent
+- https://torrents.linuxmint.com/torrents/linuxmint-18-mate-64bit.iso.torrent
+- https://torrents.linuxmint.com/torrents/linuxmint-18-mate-32bit.iso.torrent
+- https://ftp.heanet.ie/mirrors/linuxmint.com/stable/18/linuxmint-18-cinnamon-64bit.iso
+- https://ftp.heanet.ie/mirrors/linuxmint.com/stable/18/linuxmint-18-cinnamon-32bit.iso
+- https://ftp.heanet.ie/mirrors/linuxmint.com/stable/18/linuxmint-18-mate-64bit.iso
+- https://ftp.heanet.ie/mirrors/linuxmint.com/stable/18/linuxmint-18-mate-32bit.iso
+- https://ftp.heanet.ie/mirrors/linuxmint.com/stable/18/sha256sum.txt
+- https://ftp.heanet.ie/mirrors/linuxmint.com/stable/18/sha256sum.txt.gpg
 
 [Ubuntu](http://www.ubuntu.com)
 

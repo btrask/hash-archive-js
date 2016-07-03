@@ -173,14 +173,14 @@ templates.index = function(stream, example_url, example_hash, recent_urls) {
 	});
 
 	var critical = [
-		"https://mirrors.kernel.org/linuxmint//stable/17.3/linuxmint-17.3-cinnamon-64bit.iso",
+		"https://ftp.heanet.ie/mirrors/linuxmint.com/stable/18/linuxmint-18-cinnamon-64bit.iso",
 		"https://code.jquery.com/jquery-2.2.3.min.js",
 		"https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js",
 		"https://ftp-master.debian.org/keys/archive-key-8.asc",
 		"http://cdimage.debian.org/debian-cd/8.4.0/amd64/iso-cd/SHA256SUMS",
 		"http://heanet.dl.sourceforge.net/project/keepass/KeePass%202.x/2.32/KeePass-2.32.zip",
 		"http://openwall.com/signatures/openwall-signatures.asc",
-		"http://rpmfusion.org/keys?action=AttachFile&do=view&target=RPM-GPG-KEY-rpmfusion-free-fedora23",
+		"http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-23.noarch.rpm",
 	].map(function(url) {
 		return item_html("web-url", "", url, false);
 	});

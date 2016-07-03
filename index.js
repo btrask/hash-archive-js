@@ -489,8 +489,8 @@ function GET_index(req, res) {
 
 	res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
 	templates.index(res,
-	"http://torrents.linuxmint.com/torrents/linuxmint-17.3-cinnamon-64bit.iso.torrent",
-	"hash://sha256/212cc9f731e2237fb1e487eb5056080aeded67223f9c318cd450a30633e5dc62",
+	"https://torrents.linuxmint.com/torrents/linuxmint-18-cinnamon-64bit.iso.torrent",
+	"hash://sha256/030d8c2d6b7163a482865716958ca03806dfde99a309c927e56aa9962afbb95d",
 	recent_urls);
 	return 0;
 }
