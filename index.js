@@ -492,7 +492,9 @@ function GET_index(req, res) {
 	if("GET" !== req.method && "HEAD" !== req.method) return -1;
 	if("/" !== req.url) return -1;
 
-	res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+	write_head(req, res, 200, {
+		"Content-Type": "text/html; charset=utf-8"
+	});
 	templates.index(res,
 	"https://torrents.linuxmint.com/torrents/linuxmint-18-cinnamon-64bit.iso.torrent",
 	"hash://sha256/030d8c2d6b7163a482865716958ca03806dfde99a309c927e56aa9962afbb95d",
@@ -529,7 +531,9 @@ function GET_critical(req, res) {
 	if("GET" !== req.method && "HEAD" !== req.method) return -1;
 	if("/critical/" !== req.url) return -1;
 
-	res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+	write_head(req, res, 200, {
+		"Content-Type": "text/html; charset=utf-8"
+	});
 	templates.critical(res);
 	return 0;
 }
