@@ -234,6 +234,10 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 
 JavaScript on CDNs
 
+- https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js
+- https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js
+- http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.0.0.min.js
+- https://code.jquery.com/jquery-3.0.0.min.js
 - https://code.jquery.com/jquery-2.2.3.min.js
 - https://code.jquery.com/jquery-1.12.4.min.js
 - https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js
