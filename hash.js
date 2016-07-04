@@ -38,6 +38,7 @@ hashm.parse = function(hash) {
 	var pfx = /^([\w\d]+)-([\w\d/+=]+)$/;
 	var ni = /^ni:\/\/\/([\w\d.-]+);([\w\d_-]+)$/i;
 	var mh = /^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{8,}$/;
+	var ssb = /\&([a-zA-Z0-9+\/]{8,}={0,3})\.([a-z0-9]{3,})/;
 	var match;
 	if((match = hu.exec(hash))) return {
 		type: "hash-uri",
@@ -65,6 +66,11 @@ hashm.parse = function(hash) {
 			};
 		} catch(e) {}
 	};
+	if((match = ssb.exec(hash)) return {
+		type: "ssb",
+		algo: mtch[2],
+		hash: new Buffer(match[1], "base64"),
+	};
 	return null;
 }
 hashm.format = function(type, algo, data) {
@@ -78,6 +84,8 @@ hashm.format = function(type, algo, data) {
 		case "multihash":
 			if(!has(algo_to_mh, algo)) return null;
 			return bs58.encode(multihash.encode(data, algo_to_mh[algo]));
+		caase "ssb":
+			return "&"+data.toString("base64")+"."+algo;
 		default: return null;
 	}
 }
@@ -92,6 +100,7 @@ hashm.variants = function(algo, data) {
 		"hash-uri-b64",
 		"named-info",
 		"prefix",
+		"ssb",
 		"multihash",
 	];
 	var obj = {};
