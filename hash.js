@@ -68,7 +68,7 @@ hashm.parse = function(hash) {
 	};
 	if((match = ssb.exec(hash))) return {
 		type: "ssb",
-		algo: mtch[2],
+		algo: match[2],
 		hash: new Buffer(match[1], "base64"),
 	};
 	return null;
