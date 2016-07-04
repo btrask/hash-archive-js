@@ -84,7 +84,7 @@ hashm.format = function(type, algo, data) {
 		case "multihash":
 			if(!has(algo_to_mh, algo)) return null;
 			return bs58.encode(multihash.encode(data, algo_to_mh[algo]));
-		caase "ssb":
+		case "ssb":
 			return "&"+data.toString("base64")+"."+algo;
 		default: return null;
 	}
