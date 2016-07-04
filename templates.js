@@ -258,6 +258,7 @@ templates.history = function(stream, url, outdated, responses) {
 			"named-info-list": lists["named-info"].join(""),
 			"multihash-list": lists["multihash"].join(""),
 			"prefix-list": lists["prefix"].join(""),
+			"ssb-list": lists["ssb"].join(""),
 			"dates": dups.join(""),
 		});
 	}
