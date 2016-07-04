@@ -198,6 +198,7 @@ templates.index = function(stream, example_url, example_hash, recent_urls) {
 		"named-info-example": link_html("named-info", variants["named-info"]),
 		"multihash-example": link_html("multihash", variants["multihash"]),
 		"prefix-example": link_html("prefix", variants["prefix"]),
+		"ssb-example": link_html("ssb", variants["ssb"]),
 		"examples": examples.join("\n"),
 		"recent-list": recent.join("\n"),
 		"critical-list": critical.join("\n"),
