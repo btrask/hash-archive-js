@@ -22,6 +22,8 @@ var algos = [ // In order of "most prefered."
 	"sha256",
 	"sha384",
 	"sha512",
+	"blake2b",
+	"blake2s",
 	"sha1",
 	"md5",
 ];
@@ -29,6 +31,8 @@ var algos_modern = {
 	"sha256": true,
 	"sha384": true,
 	"sha512": true,
+	"blake2b": true,
+	"blake2s": true,
 };
 
 function buf_eq(a, b) {

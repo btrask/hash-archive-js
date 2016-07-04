@@ -7,6 +7,7 @@ var crypto = require("crypto");
 
 var multihash = require("multihashes");
 var bs58 = require("bs58");
+var blake2 = require("blake2");
 
 var has = require("./has");
 
@@ -126,6 +127,8 @@ hashm.hashStream = function(stream, cb) { // cb(err, hashes, length)
 		"sha256": crypto.createHash("sha256"),
 		"sha384": crypto.createHash("sha384"),
 		"sha512": crypto.createHash("sha512"),
+		"blake2s": blake2.createHash("blake2s"),
+		"blake2b": blake2.createHash("blake2b"),
 	};
 	stream.on("data", function(chunk) {
 		length += chunk.length;
