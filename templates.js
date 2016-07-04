@@ -16,6 +16,7 @@ var types = [
 	"named-info",
 	"multihash",
 	"prefix",
+	"ssb",
 ];
 var algos = [ // In order of "most prefered."
 	"sha256",
