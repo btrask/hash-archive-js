@@ -93,11 +93,14 @@ function link_html(type, uri_unsafe) {
 			"<sup>[<a href=\""+uri+"\" rel=\"nofollow\">#</a>]</sup>";
 	case "multihash":
 	case "prefix":
+	case "ssb":
 		return "<a href=\"/sources/"+uri+"\">"+uri+"</a>";
 	case "raw":
 		return "<a href=\""+uri+"\">"+uri+"</a>"
 	case "none":
 		return "<span>"+uri+"</span>";
+	default:
+		throw new Error("Unrecognized hash");
 	}
 }
 function item_html(type, label, uri_unsafe, deprecated) {
@@ -115,7 +118,10 @@ function direct_link_html(type, uri_unsafe) {
 		return "<a href=\""+uri+"\" rel=\"nofollow\">"+uri+"</a>"
 	case "multihash":
 	case "prefix":
+	case "ssb":
 		return "<span>"+uri+"</span>";
+	default:
+		throw new Error("Unrecognized hash");
 	}
 }
 
