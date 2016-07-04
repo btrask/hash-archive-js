@@ -15,6 +15,8 @@ var algo_to_mh = {
 	"sha256": "sha2-256",
 	"sha512": "sha2-512",
 	"sha3": "sha3",
+	"blake2b": "blake2b",
+	"blake2s": "blake2s",
 };
 var mh_to_algo = map_invert(algo_to_mh);
 
