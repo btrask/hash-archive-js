@@ -178,11 +178,11 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 [GCC](https://gcc.gnu.org/)
 
 - http://mirrors.concertpass.com/gcc/releases/gcc-4.9.3/gcc-4.9.3.tar.bz2
-- ftp://ftp.mpi-sb.mpg.de/pub/gnu/mirror/gcc.gnu.org/pub/gcc/releases/gcc-4.9.3/gcc-4.9.3.tar.bz2
+- http://nl.mirror.babylon.network/gcc/releases/gcc-4.9.3/gcc-4.9.3.tar.bz2
 - http://mirrors.concertpass.com/gcc/releases/gcc-5.4.0/gcc-5.4.0.tar.bz2
-- ftp://ftp.mpi-sb.mpg.de/pub/gnu/mirror/gcc.gnu.org/pub/gcc/releases/gcc-5.4.0/gcc-5.4.0.tar.bz2
+- http://nl.mirror.babylon.network/gcc/releases/gcc-5.4.0/gcc-5.4.0.tar.bz2
 - http://mirrors.concertpass.com/gcc/releases/gcc-6.1.0/gcc-6.1.0.tar.bz2
-- ftp://ftp.mpi-sb.mpg.de/pub/gnu/mirror/gcc.gnu.org/pub/gcc/releases/gcc-6.1.0/gcc-6.1.0.tar.bz2
+- http://nl.mirror.babylon.network/gcc/releases/gcc-6.1.0/gcc-6.1.0.tar.bz2
 - https://gcc.gnu.org/mirrors.html
 
 [CompCert](http://compcert.inria.fr)
