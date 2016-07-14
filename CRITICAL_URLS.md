@@ -177,13 +177,13 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 
 [GCC](https://gcc.gnu.org/)
 
+- http://mirrors.concertpass.com/gcc/releases/gcc-4.9.3/gcc-4.9.3.tar.bz2
+- ftp://ftp.mpi-sb.mpg.de/pub/gnu/mirror/gcc.gnu.org/pub/gcc/releases/gcc-4.9.3/gcc-4.9.3.tar.bz2
+- http://mirrors.concertpass.com/gcc/releases/gcc-5.4.0/gcc-5.4.0.tar.bz2
+- ftp://ftp.mpi-sb.mpg.de/pub/gnu/mirror/gcc.gnu.org/pub/gcc/releases/gcc-5.4.0/gcc-5.4.0.tar.bz2
+- http://mirrors.concertpass.com/gcc/releases/gcc-6.1.0/gcc-6.1.0.tar.bz2
+- ftp://ftp.mpi-sb.mpg.de/pub/gnu/mirror/gcc.gnu.org/pub/gcc/releases/gcc-6.1.0/gcc-6.1.0.tar.bz2
 - https://gcc.gnu.org/mirrors.html
-- http://mirrors-usa.go-parts.com/gcc/snapshots/4.9-20160406/gcc-4.9-20160406.tar.bz2
-- http://mirrors-usa.go-parts.com/gcc/snapshots/4.9-20160406/sha512.sum
-- http://mirrors-usa.go-parts.com/gcc/snapshots/5-20160405/gcc-5-20160405.tar.bz2
-- http://mirrors-usa.go-parts.com/gcc/snapshots/5-20160405/sha512.sum
-- http://mirrors-usa.go-parts.com/gcc/snapshots/6-20160410/gcc-6-20160410.tar.bz2
-- http://mirrors-usa.go-parts.com/gcc/snapshots/6-20160410/sha512.sum
 
 [CompCert](http://compcert.inria.fr)
 
