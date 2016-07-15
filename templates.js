@@ -293,12 +293,15 @@ templates.sources = function(stream, hash, history) {
 		warning = sources.weak.toString({});
 	}
 
+	var ipfs_block_hash = hashm.format("multihash", obj.algo, obj.data);
+
 	sources.header.write(stream, {
 		"hash": hash,
 		"hash-link": direct_link_html(obj.type, hash),
 		"weak-hash-warning": warning,
 		"google-url": "https://www.google.com/search?q="+html_escape(obj.data.toString("hex")),
 		"duckduckgo-url": "https://duckduckgo.com/?q="+html_escape(obj.data.toString("hex")),
+		"ipfs-block-url": "https://ipfs.io/api/v0/block/get?arg="+html_escape(ipfs_block_hash),
 		"virustotal-url": "https://www.virustotal.com/en/file/"+html_escape(obj.data.toString("hex"))+"/analysis/",
 	});
 
