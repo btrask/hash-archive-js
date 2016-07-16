@@ -223,6 +223,14 @@ function url_check_and_stat(url, redirect_count, cb) {
 
 function url_normalize(url) {
 	if("string" !== typeof url) return null;
+
+	// Note: IPFS paths can contain arbitrary sub-paths and file names.
+	// Don't bother filtering, since we don't filter ordinary URLs.
+	var ipfs_path = /^\/(ip[fn]s)\/(.+)$/i.exec(url);
+	if(ipfs_path) {
+		url = "https://ipfs.io/"+ipfs_path[1].toLowerCase()+"/"+ipfs_path[2];
+	}
+
 	// TODO: Fix http:/// and http:/ ?
 	var obj = urlm.parse(url);
 	if("http:" !== obj.protocol && "https:" !== obj.protocol) return null;
