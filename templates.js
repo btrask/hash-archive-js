@@ -54,6 +54,7 @@ function hashes_eq(a, b) {
 }
 
 function html_escape(str) { // Security critical
+	if(!str) return "";
 	return str.
 		replace(/&/g, "&amp;").
 		replace(/</g, "&lt;").
