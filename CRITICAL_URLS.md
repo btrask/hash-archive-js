@@ -25,8 +25,47 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 
 [Ubuntu](http://www.ubuntu.com)
 
+- http://releases.ubuntu.com/12.04.5/SHA256SUMS
+- http://releases.ubuntu.com/12.04.5/SHA256SUMS.gpg
+- http://releases.ubuntu.com/12.04.5/ubuntu-12.04.5-server-i386.iso.torrent
+- http://releases.ubuntu.com/12.04.5/ubuntu-12.04.5-server-amd64.iso.torrent
+- http://releases.ubuntu.com/12.04.5/ubuntu-12.04.5-desktop-i386.iso.torrent
+- http://releases.ubuntu.com/12.04.5/ubuntu-12.04.5-desktop-amd64.iso.torrent
+- http://releases.ubuntu.com/12.04.5/ubuntu-12.04.5-alternate-i386.iso.torrent
+- http://releases.ubuntu.com/12.04.5/ubuntu-12.04.5-alternate-amd64.iso.torrent
+
+- http://releases.ubuntu.com/14.04.4/SHA256SUMS
+- http://releases.ubuntu.com/14.04.4/SHA256SUMS.gpg
+- http://releases.ubuntu.com/14.04.4/ubuntu-14.04.4-server-i386.iso.torrent
+- http://releases.ubuntu.com/14.04.4/ubuntu-14.04.4-server-amd64.iso.torrent
+- http://releases.ubuntu.com/14.04.4/ubuntu-14.04.4-desktop-i386.iso.torrent
+- http://releases.ubuntu.com/14.04.4/ubuntu-14.04.4-desktop-amd64.iso.torrent
+- http://releases.ubuntu.com/14.04.4/ubuntu-14.04.4-alternate-i386.iso.torrent
+- http://releases.ubuntu.com/14.04.4/ubuntu-14.04.4-alternate-amd64.iso.torrent
+
+- http://releases.ubuntu.com/15.04/SHA256SUMS
+- http://releases.ubuntu.com/15.04/SHA256SUMS.gpg
+
+- http://releases.ubuntu.com/15.10/SHA256SUMS
+- http://releases.ubuntu.com/15.10/SHA256SUMS.gpg
+- http://releases.ubuntu.com/15.10/ubuntu-15.10-server-i386.iso.torrent
+- http://releases.ubuntu.com/15.10/ubuntu-15.10-server-amd64.iso.torrent
+- http://releases.ubuntu.com/15.10/ubuntu-15.10-desktop-i386.iso.torrent
+- http://releases.ubuntu.com/15.10/ubuntu-15.10-desktop-amd64.iso.torrent
+- http://releases.ubuntu.com/15.10/ubuntu-15.10-alternate-i386.iso.torrent
+- http://releases.ubuntu.com/15.10/ubuntu-15.10-alternate-amd64.iso.torrent
+
 - http://releases.ubuntu.com/16.04/ubuntu-16.04-desktop-i386.iso
 - http://releases.ubuntu.com/16.04/ubuntu-16.04-desktop-amd64.iso
+
+- http://releases.ubuntu.com/16.04.1/SHA256SUMS
+- http://releases.ubuntu.com/16.04.1/SHA256SUMS.gpg
+- http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-server-i386.iso.torrent
+- http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-server-amd64.iso.torrent
+- http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-desktop-i386.iso.torrent
+- http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-desktop-amd64.iso.torrent
+- http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-alternate-i386.iso.torrent
+- http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-alternate-amd64.iso.torrent
 
 [Debian](https://www.debian.org)
 
