@@ -174,6 +174,12 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 - http://mirrors.sonic.net/pub/OpenBSD/5.9/amd64/SHA256.sig
 - (Looking for copies of openbsd-59-base.pub!)
 
+[Microsoft](https://www.microsoft.com/)
+
+- https://technet.microsoft.com/en-us/library/dn753714.aspx
+- https://technet.microsoft.com/en-us/security/dn606155.aspx
+- https://technet.microsoft.com/sto/smime.p7b
+
 ## Firmware and drivers
 
 [Samsung SSD firmware updates](http://www.samsung.com/semiconductor/minisite/ssd/download/tools.html)
