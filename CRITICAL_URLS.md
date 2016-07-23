@@ -180,6 +180,17 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 - https://technet.microsoft.com/en-us/security/dn606155.aspx
 - https://technet.microsoft.com/sto/smime.p7b
 
+[Google](http://google.com)
+
+- https://services.google.com/corporate/publickey.txt
+
+[Amazon](https://www.amazon.com)
+
+- https://www.amazon.com/gp/help/customer/display.html?nodeId=200724850
+- https://aws.amazon.com/cloudhsm/cloudhsm-pgp-public-key/
+- https://aws.amazon.com/security/ec2-pkgs-public-key/
+- http://s3.amazonaws.com/ec2-downloads/ec2-api-tools.zip.asc
+
 ## Firmware and drivers
 
 [Samsung SSD firmware updates](http://www.samsung.com/semiconductor/minisite/ssd/download/tools.html)
