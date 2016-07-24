@@ -218,6 +218,8 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 - http://www.belkin.com/us/security/
 - https://www.garmin.com/en-US/legal/security
 - https://www8.garmin.com/security/GarminSecurity-PublicKey.txt
+- https://www.rust-lang.org/en-US/security.html
+
 
 ## Firmware and drivers
 
