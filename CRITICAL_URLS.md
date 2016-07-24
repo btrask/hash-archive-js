@@ -191,6 +191,34 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 - https://aws.amazon.com/security/ec2-pkgs-public-key/
 - http://s3.amazonaws.com/ec2-downloads/ec2-api-tools.zip.asc
 
+[LinkedIn](http://linkedin.com)
+
+- https://www.linkedin.com/help/linkedin/answer/62924
+- http://help.linkedin.com/app/utils/download/file/misc/trust_safety/li_security_key.asc
+
+## Other security team PGP keys
+
+- https://www.datadoghq.com/security/
+- https://www.eventbrite.ca/security/
+- https://www.roku.com/about/security-team-public-pgp-key
+- https://golang.org/security
+- https://www.ruckuswireless.com/security
+- https://nextcloud.com/security/
+- https://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=1055
+- https://zenmate.com/security/
+- http://www.ge.com/security
+- http://www.ge.com/sites/default/files/PSIRT_GE.asc
+- https://team.opera.com/securitygroup/pgpkey/
+- https://www.us-cert.gov/contact-us
+- https://www.us-cert.gov/sites/default/files/pgp/0x75F96C93_soc_pub.asc
+- https://www.us-cert.gov/sites/default/files/pgp/0x550C464A_info_pub.asc
+- https://www.juniper.net/us/en/security/report-vulnerability/
+- https://www.juniper.net/support/security/security-alert.key
+- https://www.juniper.net/support/security/sirt.cer
+- http://www.belkin.com/us/security/
+- https://www.garmin.com/en-US/legal/security
+- https://www8.garmin.com/security/GarminSecurity-PublicKey.txt
+
 ## Firmware and drivers
 
 [Samsung SSD firmware updates](http://www.samsung.com/semiconductor/minisite/ssd/download/tools.html)
