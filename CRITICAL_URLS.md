@@ -145,7 +145,7 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 - https://technet.microsoft.com/en-us/security/dn606155.aspx
 - https://technet.microsoft.com/sto/smime.p7b
 
-[Google](http://google.com)
+[Google](https://google.com)
 
 - https://services.google.com/corporate/publickey.txt
 
@@ -156,7 +156,7 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 - https://aws.amazon.com/security/ec2-pkgs-public-key/
 - http://s3.amazonaws.com/ec2-downloads/ec2-api-tools.zip.asc
 
-[LinkedIn](http://linkedin.com)
+[LinkedIn](https://linkedin.com)
 
 - https://www.linkedin.com/help/linkedin/answer/62924
 - http://help.linkedin.com/app/utils/download/file/misc/trust_safety/li_security_key.asc
