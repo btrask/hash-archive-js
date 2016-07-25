@@ -25,47 +25,10 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 
 [Ubuntu](http://www.ubuntu.com)
 
-- http://releases.ubuntu.com/12.04.5/SHA256SUMS
-- http://releases.ubuntu.com/12.04.5/SHA256SUMS.gpg
-- http://releases.ubuntu.com/12.04.5/ubuntu-12.04.5-server-i386.iso.torrent
-- http://releases.ubuntu.com/12.04.5/ubuntu-12.04.5-server-amd64.iso.torrent
-- http://releases.ubuntu.com/12.04.5/ubuntu-12.04.5-desktop-i386.iso.torrent
-- http://releases.ubuntu.com/12.04.5/ubuntu-12.04.5-desktop-amd64.iso.torrent
-- http://releases.ubuntu.com/12.04.5/ubuntu-12.04.5-alternate-i386.iso.torrent
-- http://releases.ubuntu.com/12.04.5/ubuntu-12.04.5-alternate-amd64.iso.torrent
-
-- http://releases.ubuntu.com/14.04.4/SHA256SUMS
-- http://releases.ubuntu.com/14.04.4/SHA256SUMS.gpg
-- http://releases.ubuntu.com/14.04.4/ubuntu-14.04.4-server-i386.iso.torrent
-- http://releases.ubuntu.com/14.04.4/ubuntu-14.04.4-server-amd64.iso.torrent
-- http://releases.ubuntu.com/14.04.4/ubuntu-14.04.4-desktop-i386.iso.torrent
-- http://releases.ubuntu.com/14.04.4/ubuntu-14.04.4-desktop-amd64.iso.torrent
-- http://releases.ubuntu.com/14.04.4/ubuntu-14.04.4-alternate-i386.iso.torrent
-- http://releases.ubuntu.com/14.04.4/ubuntu-14.04.4-alternate-amd64.iso.torrent
-
-- http://releases.ubuntu.com/15.04/SHA256SUMS
-- http://releases.ubuntu.com/15.04/SHA256SUMS.gpg
-
-- http://releases.ubuntu.com/15.10/SHA256SUMS
-- http://releases.ubuntu.com/15.10/SHA256SUMS.gpg
-- http://releases.ubuntu.com/15.10/ubuntu-15.10-server-i386.iso.torrent
-- http://releases.ubuntu.com/15.10/ubuntu-15.10-server-amd64.iso.torrent
-- http://releases.ubuntu.com/15.10/ubuntu-15.10-desktop-i386.iso.torrent
-- http://releases.ubuntu.com/15.10/ubuntu-15.10-desktop-amd64.iso.torrent
-- http://releases.ubuntu.com/15.10/ubuntu-15.10-alternate-i386.iso.torrent
-- http://releases.ubuntu.com/15.10/ubuntu-15.10-alternate-amd64.iso.torrent
-
-- http://releases.ubuntu.com/16.04/ubuntu-16.04-desktop-i386.iso
+- http://releases.ubuntu.com/16.04/ubuntu-16.04-server-amd64.iso
 - http://releases.ubuntu.com/16.04/ubuntu-16.04-desktop-amd64.iso
-
-- http://releases.ubuntu.com/16.04.1/SHA256SUMS
-- http://releases.ubuntu.com/16.04.1/SHA256SUMS.gpg
-- http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-server-i386.iso.torrent
-- http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-server-amd64.iso.torrent
-- http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-desktop-i386.iso.torrent
-- http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-desktop-amd64.iso.torrent
-- http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-alternate-i386.iso.torrent
-- http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-alternate-amd64.iso.torrent
+- http://releases.ubuntu.com/14.04.4/ubuntu-14.04.4-server-amd64.iso
+- http://releases.ubuntu.com/14.04.4/ubuntu-14.04.4-desktop-amd64.iso
 
 [Debian](https://www.debian.org)
 
@@ -162,17 +125,19 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 - http://support.apple.com/downloads/DL1869/en_US/osxupdcombo10.11.4.dmg
 - http://support.apple.com/downloads/DL1832/en_US/osxupdcombo10.10.5.dmg
 
-[Apple Product Security PGP Key](https://support.apple.com/en-us/HT201601)
-
-- https://www.apple.com/support/security/pgp/
-- https://www.apple.com/support/security/pgp/archive/
-
 [OpenBSD](https://www.openbsd.org/)
 
 - http://mirrors.sonic.net/pub/OpenBSD/5.9/amd64/install59.iso
 - http://mirrors.sonic.net/pub/OpenBSD/5.9/amd64/SHA256
 - http://mirrors.sonic.net/pub/OpenBSD/5.9/amd64/SHA256.sig
 - (Looking for copies of openbsd-59-base.pub!)
+
+## Corporate or security team signatures and PGP keys
+
+[Apple Product Security PGP Key](https://support.apple.com/en-us/HT201601)
+
+- https://www.apple.com/support/security/pgp/
+- https://www.apple.com/support/security/pgp/archive/
 
 [Microsoft](https://www.microsoft.com/)
 
@@ -196,7 +161,7 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 - https://www.linkedin.com/help/linkedin/answer/62924
 - http://help.linkedin.com/app/utils/download/file/misc/trust_safety/li_security_key.asc
 
-## Other security team PGP keys
+Others:
 
 - https://www.datadoghq.com/security/
 - https://www.eventbrite.ca/security/
@@ -219,7 +184,6 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 - https://www.garmin.com/en-US/legal/security
 - https://www8.garmin.com/security/GarminSecurity-PublicKey.txt
 - https://www.rust-lang.org/en-US/security.html
-
 
 ## Firmware and drivers
 
