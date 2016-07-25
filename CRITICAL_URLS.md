@@ -181,7 +181,6 @@ Others:
 - https://www.juniper.net/support/security/security-alert.key
 - https://www.juniper.net/support/security/sirt.cer
 - http://www.belkin.com/us/security/
-- https://www.garmin.com/en-US/legal/security
 - https://www8.garmin.com/security/GarminSecurity-PublicKey.txt
 - https://www.rust-lang.org/en-US/security.html
 
