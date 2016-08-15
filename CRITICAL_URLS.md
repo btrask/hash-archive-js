@@ -130,7 +130,7 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 - http://mirrors.sonic.net/pub/OpenBSD/5.9/amd64/install59.iso
 - http://mirrors.sonic.net/pub/OpenBSD/5.9/amd64/SHA256
 - http://mirrors.sonic.net/pub/OpenBSD/5.9/amd64/SHA256.sig
-- (Looking for copies of openbsd-59-base.pub!)
+- https://raw.githubusercontent.com/jpouellet/signify-osx/master/src/etc/signify/openbsd-59-base.pub
 
 ## Corporate or security team signatures and PGP keys
 
