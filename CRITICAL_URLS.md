@@ -2,7 +2,7 @@
 
 These URLs are widely and/or critically relied on for security purposes, onto which researchers should perhaps focus extra attention and monitoring.
 
-Only recent or popular versions of e.g. downloads should generally be included, although more can be included when the download mechanism is particularly insecure.
+Only recent or popular versions of e.g. downloads should generally be included, although more can be included when the download mechanism is particularly insecure. Keys and signatures are welcome, but SHASUM files should not be added (although a separate system might be useful to validate them).
 
 HTTPS and otherwise "secure" downloads are still accepted, because servers can get hacked, etc. This monitoring just provides another layer of security.
 
@@ -20,7 +20,6 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 - https://ftp.heanet.ie/mirrors/linuxmint.com/stable/18/linuxmint-18-cinnamon-32bit.iso
 - https://ftp.heanet.ie/mirrors/linuxmint.com/stable/18/linuxmint-18-mate-64bit.iso
 - https://ftp.heanet.ie/mirrors/linuxmint.com/stable/18/linuxmint-18-mate-32bit.iso
-- https://ftp.heanet.ie/mirrors/linuxmint.com/stable/18/sha256sum.txt
 - https://ftp.heanet.ie/mirrors/linuxmint.com/stable/18/sha256sum.txt.gpg
 
 [Ubuntu](http://www.ubuntu.com)
@@ -36,14 +35,12 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 - https://ftp-master.debian.org/keys/archive-key-6.0.asc
 - https://ftp-master.debian.org/keys/archive-key-7.0.asc
 - https://ftp-master.debian.org/keys/archive-key-8-security.asc
-- http://cdimage.debian.org/debian-cd/8.4.0/amd64/iso-cd/SHA256SUMS
 - http://cdimage.debian.org/debian-cd/8.4.0/amd64/iso-cd/SHA256SUMS.sign
 - http://cdimage.debian.org/debian-cd/8.4.0/amd64/iso-cd/debian-8.4.0-amd64-CD-1.iso
 - http://cdimage.debian.org/debian-cd/8.4.0/amd64/iso-cd/debian-8.4.0-amd64-kde-CD-1.iso
 - http://cdimage.debian.org/debian-cd/8.4.0/amd64/iso-cd/debian-8.4.0-amd64-lxde-CD-1.iso
 - http://cdimage.debian.org/debian-cd/8.4.0/amd64/iso-cd/debian-8.4.0-amd64-netinst.iso
 - http://cdimage.debian.org/debian-cd/8.4.0/amd64/iso-cd/debian-8.4.0-amd64-xfce-CD-1.iso
-- http://cdimage.debian.org/debian-cd/8.4.0/amd64/bt-cd/SHA256SUMS
 - http://cdimage.debian.org/debian-cd/8.4.0/amd64/bt-cd/SHA256SUMS.sign
 - http://cdimage.debian.org/debian-cd/8.4.0/amd64/bt-cd/debian-8.4.0-amd64-CD-1.iso.torrent
 - http://cdimage.debian.org/debian-cd/8.4.0/amd64/bt-cd/debian-8.4.0-amd64-kde-CD-1.iso.torrent
@@ -62,17 +59,11 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 [OpenSUSE](https://www.opensuse.org)
 
 - http://download.opensuse.org/tumbleweed/iso/openSUSE-Tumbleweed-DVD-x86_64-Current.iso
-- http://download.opensuse.org/tumbleweed/iso/openSUSE-Tumbleweed-DVD-x86_64-Current.iso.sha256
 - http://download.opensuse.org/tumbleweed/iso/openSUSE-Tumbleweed-DVD-i586-Current.iso
-- http://download.opensuse.org/tumbleweed/iso/openSUSE-Tumbleweed-DVD-i586-Current.iso.sha256
 - http://download.opensuse.org/tumbleweed/iso/openSUSE-Tumbleweed-NET-x86_64-Current.iso
-- http://download.opensuse.org/tumbleweed/iso/openSUSE-Tumbleweed-NET-x86_64-Current.iso.sha256
 - http://download.opensuse.org/tumbleweed/iso/openSUSE-Tumbleweed-NET-i586-Current.iso
-- http://download.opensuse.org/tumbleweed/iso/openSUSE-Tumbleweed-NET-i586-Current.iso.sha256
 - http://download.opensuse.org/distribution/leap/42.1/iso/openSUSE-Leap-42.1-DVD-x86_64.iso
-- http://download.opensuse.org/distribution/leap/42.1/iso/openSUSE-Leap-42.1-DVD-x86_64.iso.sha256
 - http://download.opensuse.org/distribution/leap/42.1/iso/openSUSE-Leap-42.1-NET-x86_64.iso
-- http://download.opensuse.org/distribution/leap/42.1/iso/openSUSE-Leap-42.1-NET-x86_64.iso.sha256
 
 [QubesOS](https://www.qubes-os.org)
 
@@ -87,11 +78,9 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 
 - https://www.whonix.org/download/12.0.0.3.2/Whonix-Gateway-12.0.0.3.2.libvirt.xz
 - https://www.whonix.org/download/12.0.0.3.2/Whonix-Gateway-12.0.0.3.2.libvirt.xz.asc
-- https://www.whonix.org/download/12.0.0.3.2/Whonix-Gateway-12.0.0.3.2.sha512sums
 - https://www.whonix.org/download/12.0.0.3.2/Whonix-Gateway-12.0.0.3.2.sha512sums.asc
 - https://www.whonix.org/download/12.0.0.3.2/Whonix-Workstation-12.0.0.3.2.libvirt.xz
 - https://www.whonix.org/download/12.0.0.3.2/Whonix-Workstation-12.0.0.3.2.libvirt.xz.asc
-- https://www.whonix.org/download/12.0.0.3.2/Whonix-Workstation-12.0.0.3.2.sha512sums
 - https://www.whonix.org/download/12.0.0.3.2/Whonix-Workstation-12.0.0.3.2.sha512sums.asc
 - https://www.whonix.org/patrick.asc
 
@@ -128,7 +117,6 @@ Given the nature of a list like this, it may never be complete. Feel free to ope
 [OpenBSD](https://www.openbsd.org/)
 
 - http://mirrors.sonic.net/pub/OpenBSD/5.9/amd64/install59.iso
-- http://mirrors.sonic.net/pub/OpenBSD/5.9/amd64/SHA256
 - http://mirrors.sonic.net/pub/OpenBSD/5.9/amd64/SHA256.sig
 - https://raw.githubusercontent.com/jpouellet/signify-osx/master/src/etc/signify/openbsd-59-base.pub
 
@@ -237,7 +225,6 @@ Others:
 [CompCert](http://compcert.inria.fr)
 
 - http://compcert.inria.fr/release/compcert-2.6.tgz
-- http://compcert.inria.fr/release/SHA1SUMS
 
 [Redis](http://redis.io)
 
@@ -346,7 +333,6 @@ JavaScript on CDNs
 - http://download.virtualbox.org/virtualbox/5.0.20/virtualbox-5.0_5.0.20-106931~Debian~jessie_amd64.deb
 - http://download.virtualbox.org/virtualbox/5.0.20/VirtualBox-5.0-5.0.20_106931_openSUSE132-1.x86_64.rpm
 - http://download.virtualbox.org/virtualbox/5.0.20/VirtualBox-5.0.20-106931-SunOS.tar.gz
-- https://www.virtualbox.org/download/hashes/5.0.20/SHA256SUMS
 
 [Transmission](https://www.transmissionbt.com/)
 
